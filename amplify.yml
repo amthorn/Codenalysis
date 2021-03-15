@@ -3,7 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - cd src/Codenalysis
+        - cd src
     build:
       commands: 
         - ls -la
