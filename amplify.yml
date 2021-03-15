@@ -4,7 +4,6 @@ frontend:
     preBuild:
       commands:
         - cd src/Codenalysis
-  phases:
     build:
       commands: []
   artifacts:
