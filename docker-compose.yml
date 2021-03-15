@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: opts/Dockerfile
+    ports:
+      - 80:80
+  watchtower:
+    image: v2tec/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/config.json:~/.docker/config.json
+    command: --interval 30
