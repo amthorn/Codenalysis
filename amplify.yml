@@ -6,6 +6,7 @@ frontend:
         - ls -la
         - cd src/Codenalysis
         - ls -la
+        - npm ci
   artifacts:
     baseDirectory: /
     files:
