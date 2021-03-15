@@ -5,7 +5,8 @@ frontend:
       commands:
         - cd src/Codenalysis
     build:
-      commands: []
+      commands: 
+        - ls -la
   artifacts:
     baseDirectory: /
     files:
