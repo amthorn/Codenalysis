@@ -57,9 +57,14 @@ var WildRydes = window.WildRydes || {};
             Name: 'email',
             Value: email
         };
+        var dataUser = {
+            Name: 'preferred_username',
+            Value: email.split('@')[0]
+        };
         var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+        var attributeUser = new AmazonCognitoIdentity.CognitoUserAttribute(dataUser);
 
-        userPool.signUp(toUsername(email), password, [attributeEmail], null,
+        userPool.signUp(toUsername(email), password, [attributeEmail, attributeUser], null,
             function signUpCallback(err, result) {
                 if (!err) {
                     onSuccess(result);
