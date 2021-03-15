@@ -2,11 +2,9 @@ version: 1
 frontend:
   phases:
     preBuild:
-      commands:
-        - npm ci
+      commands: []
     build:
-      commands: 
-        - ls -la
+      commands: []
   artifacts:
     baseDirectory: /
     files:
