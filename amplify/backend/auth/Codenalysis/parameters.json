@@ -1,7 +1,7 @@
 {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "codena74bff92d",
+    "resourceNameTruncated": "codena480c30c2",
     "userPoolName": "Codenalysis",
     "autoVerifiedAttributes": [
         "phone_number"
@@ -24,16 +24,15 @@
         "Requires Uppercase"
     ],
     "requiredAttributes": [
-        "email",
-        "preferred_username"
+        "email"
     ],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "Codena74bff92d_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "Codena480c30c2_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "74bff92d",
+    "sharedId": "480c30c2",
     "resourceName": "Codenalysis",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
