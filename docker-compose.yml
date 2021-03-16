@@ -3,12 +3,10 @@ services:
   web:
     build:
       context: .
-      dockerfile: opts/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - 80:80
-  watchtower:
-    image: v2tec/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /root/.docker/config.json:~/.docker/config.json
-    command: --interval 30
+    env_file:
+      - secrets.env
+    tty: true
+    stdin_open: true

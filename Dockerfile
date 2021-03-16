@@ -6,4 +6,4 @@ RUN rm -f /requirements.txt
 
 COPY src/Codenalysis /codenalysis
 
-ENTRYPOINT ["python", "/codenalysis/app.py"]
+ENTRYPOINT ["python", "codenalysis/__init__.py"]
