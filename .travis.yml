@@ -9,7 +9,7 @@ jobs:
 
 install:
   # API container deps
-  - pip install -r requirements.txt
+  - pip install -r src/Codenalysis/api/requirements.txt
 
   # Web container deps
   - npm install --save-dev --prefix $(pwd)/src/Codenalysis/web/
