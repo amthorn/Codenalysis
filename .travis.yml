@@ -8,6 +8,7 @@ jobs:
       python: "3.9"
 
 install:
+  # TODO run these in parallel
   # API container deps
   - pip install -r src/Codenalysis/api/requirements.txt
 
