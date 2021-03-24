@@ -1,6 +1,4 @@
 import React from "react";
-import { Breadcrumb, BreadcrumbItem } from "reactstrap";
-import { Link } from "react-router-dom";
 
 export default class Home extends React.Component {
 	componentDidMount() {

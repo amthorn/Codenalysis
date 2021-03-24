@@ -2,7 +2,8 @@ import uuid
 
 from datetime import datetime
 from pynamodb.models import Model
-from pynamodb.attributes import UTCDateTimeAttribute, VersionAttribute, MapAttribute
+from pynamodb.attributes import UTCDateTimeAttribute, VersionAttribute
+
 
 class BaseModel(Model):
     class Meta:

@@ -1,6 +1,5 @@
 import React from "react";
 import RestTable from "../components/RestTable";
-import Layout from "../components/Layout";
 import CreateProjectModal from "../components/modals/CreateProjectModal";
 import { FaPlus } from 'react-icons/fa';
 import { Container, Row, Col } from "react-bootstrap";
