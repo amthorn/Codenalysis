@@ -1,20 +1,27 @@
 language: python
 cache: pip
+
 jobs:
   include:
     - stage: test
       python: "3.8"
+      install:
+        - cd $TRAVIS_BUILD_DIR/src/Codenalysis/api
+        - pip install -r requirements.txt
+      script:
+        - flake8 .
     - stage: test
       python: "3.9"
-
-install:
-  # TODO run these in parallel
-  # API container deps
-  - pip install -r src/Codenalysis/api/requirements.txt
-
-  # Web container deps
-  - npm install --save-dev --prefix $(pwd)/src/Codenalysis/web/
-
-script:
-  - flake8 src/Codenalysis/api
-  - eslint src/Codenalysis/web
+      install:
+        - cd $TRAVIS_BUILD_DIR/src/Codenalysis/api
+        - pip install -r requirements.txt
+      script:
+        - flake8 .
+    - language: node_js
+      node_js:
+        - 15
+      install: 
+        - cd $TRAVIS_BUILD_DIR/src/Codenalysis/web
+        - npm install --save-dev
+      script:
+        - npm test
