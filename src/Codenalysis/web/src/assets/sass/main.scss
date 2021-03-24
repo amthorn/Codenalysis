@@ -1,0 +1,97 @@
+$fa-font-path: "../../../node_modules/font-awesome/fonts";
+
+@import "../../../node_modules/bootstrap/scss/_functions";
+@import "../../../node_modules/bootstrap/scss/_variables";
+@import "../../../node_modules/bootstrap/scss/_mixins";
+@import "../../../node_modules/bootstrap/scss/_buttons";
+@import "../../../node_modules/bootstrap/scss/_dropdown";
+
+// @import "../../../node_modules/bootstrap/scss/bootstrap";
+
+@import "../../../node_modules/font-awesome/scss/font-awesome";
+
+
+@mixin icon-override {
+	background-image: none;
+	@extend .fa;
+	padding-top: 0.5em;
+}
+
+.sidenav-icon {
+	margin-left: 0.75em;
+	margin-right: 1.75em;
+}
+
+.navbar {
+	padding: 10px 30px 10px 20px;
+	text-transform: uppercase;
+	font-weight: bold;
+	min-width: 30%;
+}
+
+.breadcrumb {
+	background: linear-gradient(0deg, #3358f4 0%, #1d8cf8 100%);
+	justify-content: center;
+	& .breadcrumb-item {
+		& a {
+			color: #ddd;
+			transition: all 300ms ease 0s;
+			&:hover {
+				color:#fff;
+			};
+		}
+		& div {
+			font-weight: 300;
+			color: #aaa;
+		}
+	}
+}
+
+.administration-nav-link {
+	position: fixed;
+	padding-bottom: 1.5em;
+	bottom: 0;
+}
+
+nav[aria-label="breadcrumb"] {
+	// This is what the sidebar uses, 230px, use the same width
+	min-width: 230px;
+}
+
+// Change default icons
+.data-table-extensions {
+	& > .data-table-extensions-filter > .icon {
+		@include icon-override;
+		@extend .fa-search;
+	}
+	& > .data-table-extensions-action {
+		& > button {
+			&::after {
+				// This is needed so that the hover font looks the same as the rest of the page
+				font-family: "Open Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+				font-color: black;
+			}
+			&.print {
+				@include icon-override;
+				@extend .fa-print;
+				padding-bottom: 0.5em;
+
+				&:hover::after {
+					margin-top: 0em;
+					padding-top: 0em;
+				}
+			}
+			&.download {
+				@include icon-override;
+				@extend .fa-download;
+				padding-bottom: 0.5em;
+
+				&:hover::after {
+					margin-top: 0em;
+					padding-top: 0em;
+				}
+			}
+		}
+	}
+}
+

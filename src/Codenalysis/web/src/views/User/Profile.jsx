@@ -1,0 +1,1 @@
+import UserProfile from "../assets/js/views/UserProfile";

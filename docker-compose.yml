@@ -1,12 +1,39 @@
 version: "3.3"
+volumes:
+  # ignore all css from the docker container and do not mount to my local dir
+  # This is because the CSS files shouldn't be modified. Only the sass files
+  # So no need to store them locally.
+  compiled_css:
 services:
-  web:
+  nginx:
+    restart: always
     build:
-      context: .
       dockerfile: Dockerfile
+      context: ./src/Codenalysis/nginx
     ports:
       - 80:80
+  web:
+    restart: always
+    build:
+      context: src/Codenalysis/web/
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: development
+      DANGEROUSLY_DISABLE_HOST_CHECK: 'true'
+      HOST: 0.0.0.0
+      PORT: '3000'
+    volumes:
+      - ./src/Codenalysis/web/src:/codenalysis/src
+      - ./src/Codenalysis/web/public:/codenalysis/public
+      - compiled_css:/codenalysis/src/assets/css
+  api: 
+    restart: always
+    build:
+      context: src/Codenalysis/api
+      dockerfile: Dockerfile
     env_file:
       - secrets.env
+    volumes:
+      - ./src/Codenalysis/api:/codenalysis
     tty: true
     stdin_open: true

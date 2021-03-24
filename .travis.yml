@@ -8,7 +8,12 @@ jobs:
       python: "3.9"
 
 install:
+  # API container deps
   - pip install -r requirements.txt
 
+  # Web container deps
+  - npm install --save-dev --prefix $(pwd)/src/Codenalysis/web/
+
 script:
-  - flake8 .
+  - flake8 src/Codenalysis/api
+  - eslint src/Codenalysis/web
