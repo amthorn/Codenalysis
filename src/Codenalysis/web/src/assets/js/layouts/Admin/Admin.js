@@ -29,7 +29,6 @@ import FixedPlugin from "../../components/FixedPlugin/FixedPlugin.js";
 import routes from "../../routes.js";
 
 import logo from "../../assets/img/react-logo.png";
-import { BackgroundColorContext } from "../../contexts/BackgroundColorContext";
 
 var ps;
 
@@ -113,7 +112,7 @@ function Admin(props) {
             }}
             toggleSidebar={toggleSidebar}
           />
-          <div className="main-panel" ref={mainPanelRef} data={color}>
+          <div className="main-panel" ref={mainPanelRef} data="blue">
             <AdminNavbar
               brandText={getBrandText(location.pathname)}
               toggleSidebar={toggleSidebar}
@@ -129,7 +128,7 @@ function Admin(props) {
             }
           </div>
         </div>
-        <FixedPlugin bgColor={color} handleBgClick={changeColor} />
+        <FixedPlugin bgColor="blue" />
       </React.Fragment>
   );
 }
