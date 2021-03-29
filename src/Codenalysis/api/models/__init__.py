@@ -1,39 +1,47 @@
-import uuid
+from app import app
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import Column
+from sqlalchemy.types import DateTime, Integer
+from sqlalchemy.sql import func
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy_serializer import SerializerMixin
 
-from datetime import datetime
-from pynamodb.models import Model
-from pynamodb.attributes import UTCDateTimeAttribute, VersionAttribute
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@db/codenalysis'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+# TODO: make config handling better
+engine = db.create_engine(
+    app.config['SQLALCHEMY_DATABASE_URI'],
+    engine_opts={'convert_unicode': True}
+)
+db_session = db.scoped_session(db.sessionmaker(autocommit=False, autoflush=False, bind=engine))
+
+Base = declarative_base(db.Model)
+Base.query = db.session.query_property()
+
+migrate = Migrate(app, db)
+
+# version = VersionAttribute()
+# created_at = UTCDateTimeAttribute(default=datetime.utcnow)
+# updated_at = UTCDateTimeAttribute(default=datetime.utcnow)
+# deleted_at = UTCDateTimeAttribute(null=True)
 
 
-class BaseModel(Model):
-    class Meta:
-        read_capacity_units = 5
-        write_capacity_units = 5
-        region = 'us-east-2'
+class TimestampMixin:
+    created_at = Column(DateTime, default=func.now(), nullable=False)
+    updated_at = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
+    deleted_at = Column(DateTime, nullable=True)
 
-    version = VersionAttribute()
-    created_at = UTCDateTimeAttribute(default=datetime.utcnow)
-    updated_at = UTCDateTimeAttribute(default=datetime.utcnow)
-    deleted_at = UTCDateTimeAttribute(null=True)
 
-    def __init__(self, **kwargs):
-        kwargs.pop('id', None)
-        return super().__init__(str(uuid.uuid4()), **kwargs)
+class BaseMixin(SerializerMixin, TimestampMixin):
+    id = Column(Integer, primary_key=True)
 
-    def __iter__(self):
-        for name, attr in self.get_attributes().items():
-            value = getattr(self, name)
-            yield name, attr.serialize(value) if value is not None else None
 
-    def save(self, *args, **kwargs):
-        self.updated_at = datetime.utcnow()
-        return super().save(*args, **kwargs)
-
-    def update(self, actions, *args, **kwargs):
-        actions.append(self.__class__.updated_at.set(datetime.utcnow()))
-        return super().update(actions, *args, **kwargs)
-
-    def delete(self, *args, **kwargs):
-        return super().update(actions=[
-            self.__class__.deleted_at.set(datetime.utcnow())
-        ], *args, **kwargs)
+def init_db():
+    from .projects import ProjectModel  # noqa
+    from .challenges import ChallengeModel  # noqa
+    # alembic.migrate()
+    # Base.metadata.create_all(bind=engine)

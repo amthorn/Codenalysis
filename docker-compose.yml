@@ -6,14 +6,33 @@ volumes:
   compiled_css:
 services:
   nginx:
+    depends_on:
+      - web
     restart: always
     build:
-      dockerfile: Dockerfile
       context: ./src/Codenalysis/nginx
     ports:
       - 80:80
+    healthcheck:
+      test: ["CMD", "service", "nginx", "status", "|", "grep", "\\[ ok \\] nginx is running"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+  db:
+    restart: always
+    build:
+      context: src/Codenalysis/db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
   web:
     restart: always
+    depends_on:
+      - api
     build:
       context: src/Codenalysis/web/
       dockerfile: Dockerfile
@@ -22,17 +41,29 @@ services:
       DANGEROUSLY_DISABLE_HOST_CHECK: 'true'
       HOST: 0.0.0.0
       PORT: '3000'
+    healthcheck:
+      test: ["CMD", "ps", "aux", "|", "grep", "start.js"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
     volumes:
       - ./src/Codenalysis/web/src:/codenalysis/src
       - ./src/Codenalysis/web/public:/codenalysis/public
       - compiled_css:/codenalysis/src/assets/css
   api: 
+    depends_on:
+      - db
     restart: always
     build:
       context: src/Codenalysis/api
-      dockerfile: Dockerfile
-    env_file:
-      - secrets.env
+      dockerfile: opts/Dockerfile
+    environment:
+      FLASK_ENV: development
+    healthcheck:
+      test: ["CMD", "!", "curl", "http://localhost/api/v1/healthcheck", "|", "grep", "NOT OK"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
     volumes:
       - ./src/Codenalysis/api:/codenalysis
     tty: true

@@ -1,18 +1,26 @@
 import { toast } from "react-toastify";
 
-export default function request(url, options) {
-	const update = { ...options };
-	update.headers = {
+export const request = (url, options) => {
+	const update = {
+		...options,
+
+		head: {
 			"Content-Type": "application/json",
-			...update.headers,
+			...options.headers,
+		}
 	};
 
-	return fetch(url, update).then((response) => {
-	  	return response.json().then((data) => {
-	  		if('message' in data){
-				toast[data['message']['priority']](data['message']['text'])
-	  		}
-			return { response: response, data: data }
-	  	})
-	});
-}
+	return fetch(url, update).then((response) => response.json().then((data) => {
+  		if("message" in data){
+  			if("raw" in data.message){
+	  			data.message.raw.map((value, key) => (
+	  				toast[data.message.priority](`${key}: ${value}`)
+	  			));
+			}else{
+				toast[data.message.priority](data.message.text);
+			}
+  		}
+
+		return { response, data };
+	}));
+};

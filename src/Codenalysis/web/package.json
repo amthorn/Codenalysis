@@ -4,9 +4,77 @@
   "description": "<p align=\"center\">     <a href=\"https://travis-ci.com/github/amthorn/Codenalysis\" alt=\"build\"><img src=\"https://travis-ci.com/amthorn/Codenalysis.svg?branch=master\" /></a> </p>",
   "main": "index.js",
   "eslintConfig": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "sourceType": "module",
+      "allowImportExportEverywhere": true
+    },
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "airbnb",
+      "eslint:all",
+      "plugin:react/all",
+      "plugin:promise/recommended",
+      "es/node",
+      "hardcore",
+      "hardcore/fp",
+      "hardcore/node",
+      "plugin:security/recommended"
+    ],
+    "env": {
+      "browser": true
+    },
+    "ignorePatterns": [
+      "node_modules/",
+      "src/assets/js/",
+      "*.html"
+    ],
+    "rules": {
+      "react/jsx-curly-spacing": [ 2, "always" ],
+      "react/jsx-indent": [ "error", "tab" ],
+      "no-undef": [ 2 ],
+      "quotes": [ 2, "double", "avoid-escape" ],
+      "prettier/prettier": 0,
+      "this/no-this": 2,
+      "no-secrets/no-secrets": 2,
+      "xss/no-mixed-html": 2,
+      "xss/no-location-href-assign": 2,
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+      "import/first": "error",
+      "import/newline-after-import": "error",
+      "import/no-duplicates": "error",
+      "filenames/match-regex": 2,
+      "filenames/match-exported": 2,
+      "filenames/no-index": 2,
+      "no-tabs": 0,
+      "indent": [
+        "error",
+        "tab"
+      ],
+      "node/no-unsupported-features/es-syntax": 0,
+      "promise/prefer-await-to-then": 0,
+      "func-style": 0,
+      "promise/no-nesting": 0,
+      "putout/putout": 0,
+      "semi": [2, "always"],
+      "import/prefer-default-export": 0,
+      "unicorn/no-abusive-eslint-disable": 1,
+      "eslint-comments/no-unlimited-disable": 1,
+      "no-warning-comments": 0,
+      "unicorn/expiring-todo-comments": 0,
+      "import/no-unused-modules": 0
+    },
+    "plugins": [
+      "react",
+      "react-native",
+      "@babel",
+      "promise",
+      "this",
+      "no-secrets",
+      "security",
+      "xss",
+      "simple-import-sort",
+      "filenames"
     ]
   },
   "browserslist": {
@@ -29,8 +97,10 @@
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "react-scripts build",
-    "test": "eslint . && react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "npm lint && react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint '**'",
+    "install-dev": "npm install --only=dev"
   },
   "author": "",
   "license": "ISC",
@@ -40,25 +110,26 @@
   "dependencies": {
     "@babel/core": "^7.13.0",
     "@fortawesome/fontawesome-free": "5.15.1",
+    "ace-builds": "1.4.12",
+    "axios": "0.21.1",
     "bootstrap": "4.5.3",
     "bootswatch": "4.6.0",
     "chart.js": "2.9.4",
     "classnames": "2.2.6",
     "font-awesome": "4.7.0",
+    "lodash": "^4.17.21",
     "node-sass": "5.0.0",
     "node-sass-package-importer": "5.3.2",
     "npm-run-all": "4.1.5",
     "perfect-scrollbar": "1.5.0",
     "prop-types": "15.7.2",
     "react": "17.0.1",
+    "react-ace": "9.3.0",
     "react-bootstrap": "1.5.2",
     "react-chartjs-2": "2.11.1",
-    "react-data-table-component": "6.11.7",
-    "react-data-table-component-extensions": "1.5.2",
     "react-dom": "17.0.1",
     "react-icons": "4.2.0",
     "react-minimal-side-navigation": "1.8.0",
-    "react-notification-alert": "0.0.13",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.3",
     "react-toastify": "7.0.3",
@@ -67,6 +138,17 @@
     "styled-components": "5.2.1"
   },
   "devDependencies": {
-    "eslint": "7.22.0"
+    "@babel/eslint-plugin": "^7.13.10",
+    "eslint": "7.22.0",
+    "eslint-config-es": "^3.28.24",
+    "eslint-config-hardcore": "^16.7.1",
+    "eslint-plugin-filenames": "^1.3.2",
+    "eslint-plugin-no-secrets": "^0.8.9",
+    "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-react-native": "^3.10.0",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "eslint-plugin-this": "^0.2.3",
+    "eslint-plugin-xss": "^0.1.10"
   }
 }

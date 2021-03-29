@@ -3,25 +3,26 @@ cache: pip
 
 jobs:
   include:
-    - stage: test
+    - stage: test python 3.8
       python: "3.8"
       install:
         - cd $TRAVIS_BUILD_DIR/src/Codenalysis/api
         - pip install -r requirements.txt
       script:
         - flake8 .
-    - stage: test
+    - stage: test python 3.9
       python: "3.9"
       install:
         - cd $TRAVIS_BUILD_DIR/src/Codenalysis/api
         - pip install -r requirements.txt
       script:
         - flake8 .
-    - language: node_js
-      node_js:
-        - 15
-      install: 
-        - cd $TRAVIS_BUILD_DIR/src/Codenalysis/web
-        - npm install --save-dev
-      script:
-        - npm test
+    # - stage: test nodejs 15
+    #   language: node_js
+    #   node_js:
+    #     - 15
+    #   install: 
+    #     - cd $TRAVIS_BUILD_DIR/src/Codenalysis/web
+    #     - npm install --only=dev
+    #   script:
+    #     - npm test

@@ -3327,8 +3327,8 @@ input[type="button"].btn-block {
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
-  color: #ffffff;
-  background-color: #e14eca; }
+  color: #000;
+  background-color: #fff; }
 
 .nav-fill > .nav-link,
 .nav-fill .nav-item {
@@ -12046,7 +12046,7 @@ hr {
     border-top: 2px solid #e14eca; }
   .main-panel > .content {
     padding: 78px 30px 30px 280px;
-    min-height: calc(100vh - 70px); }
+    min-height: calc(100vh); }
   .main-panel > .navbar {
     margin-bottom: 0; }
   .main-panel .header {

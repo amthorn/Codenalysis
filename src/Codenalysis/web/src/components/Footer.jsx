@@ -1,43 +1,37 @@
 import React from "react";
+import { FaHeart } from "react-icons/fa.js";
 
-// reactstrap components
+// Reactstrap components
 import { Container, Nav, NavItem, NavLink } from "reactstrap";
 
-function Footer() {
-  return (
-    <footer className="footer">
-      <Container fluid>
-        <Nav>
-          <NavItem>
-            <NavLink href="https://www.creative-tim.com/?ref=bdr-user-archive-footer">
-              Creative Tim
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="https://www.creative-tim.com/presentation?ref=bdr-user-archive-footer">
-              About Us
-            </NavLink>
-          </NavItem>
-          <NavItem>
-            <NavLink href="https://www.creative-tim.com/blog?ref=bdr-user-archive-footer">
-              Blog
-            </NavLink>
-          </NavItem>
-        </Nav>
-        <div className="copyright">
-          © {new Date().getFullYear()} made with{" "}
-          <i className="tim-icons icon-heart-2" /> by{" "}
-          <a
-            href="https://www.creative-tim.com/?ref=bdr-user-archive-footer"
-            target="_blank"
-          >
-            Creative Tim
-          </a>{" "}
-          for a better web.
-        </div>
-      </Container>
-    </footer>
-  );
-}
+const Footer = function({ props: properties }) {
+	return (
+		<footer className="footer pb-0">
+			<Container fluid={ true }>
+				<Nav>
+					<NavItem>
+						<NavLink href="https://www.paypal.com/donate?business=W5AFLMVPNAXES&item_name=Contributing+to+the+continued+development+of+my+work.&currency_code=USD" target="_blank">
+							Support Me
+						</NavLink>
+					</NavItem>
+					<NavItem>
+						<NavLink href="https://www.linkedin.com/in/ava-thorn-384059135/" target="_blank">
+							About Me
+						</NavLink>
+					</NavItem>
+				</Nav>
+				<div className="copyright">
+					© {new Date().getFullYear()} developed by{" "}
+					<a
+						href="https://www.linkedin.com/in/ava-thorn-384059135/"
+						target="_blank" rel="noreferrer"
+					>
+						Ava Thorn <FaHeart />
+					</a>
+				</div>
+			</Container>
+		</footer>
+	);
+};
 
 export default Footer;

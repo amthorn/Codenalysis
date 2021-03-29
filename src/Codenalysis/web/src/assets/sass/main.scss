@@ -5,6 +5,9 @@ $fa-font-path: "../../../node_modules/font-awesome/fonts";
 @import "../../../node_modules/bootstrap/scss/_mixins";
 @import "../../../node_modules/bootstrap/scss/_buttons";
 @import "../../../node_modules/bootstrap/scss/_dropdown";
+@import "../../../node_modules/bootstrap/scss/_card";
+@import "../../../node_modules/bootstrap/scss/_tooltip";
+@import "../../../node_modules/bootstrap/scss/_tables";
 
 // @import "../../../node_modules/bootstrap/scss/bootstrap";
 
@@ -93,5 +96,77 @@ nav[aria-label="breadcrumb"] {
 			}
 		}
 	}
+}
+
+.react-strap-table {
+	& .card-header {
+    	background-color: rgba(0, 0, 0, 0);
+		& label {
+		    margin-bottom: 0;
+		}
+	}
+	& tr, select, .table-sort-th {
+	    cursor: pointer;
+	}
+	& .table-sort-icon {
+	    float: right;
+	}
+	& .card-footer {
+	    background-color: rgba(0, 0, 0, 0);
+	    padding-top: 0px;
+	    border-top: 0px;
+	}
+	& .card-body {
+	    padding-bottom: 0px;
+	}
+}
+
+.page-item {
+	cursor: pointer;
+}
+.page-link {
+	color: #000;
+}
+
+.footer {
+	padding: 0px 0 24px 0px
+}
+
+.card .card-header {
+	padding: 5px;
+}
+.white-content .table-sm > tbody > tr > td {
+	padding: 0px;
+}
+*[data="blue"] {
+    background: #3358f4;
+    background: -webkit-linear-gradient(0deg, #3358f4 0%, #1d8cf8 100%);
+    background: -o-linear-gradient(0deg, #3358f4 0%, #1d8cf8 100%);
+    background: -moz-linear-gradient(0deg, #3358f4 0%, #1d8cf8 100%);
+    background: linear-gradient(0deg, #3358f4 0%, #1d8cf8 100%); 
+}
+*[data="green"] {
+    background: #0098f0;
+    background: -webkit-linear-gradient(0deg, #0098f0 0%, #00f2c3 100%);
+    background: -o-linear-gradient(0deg, #0098f0 0%, #00f2c3 100%);
+    background: -moz-linear-gradient(0deg, #0098f0 0%, #00f2c3 100%);
+    background: linear-gradient(0deg, #0098f0 0%, #00f2c3 100%); 
+}
+// *[data="white"] {
+//     background: #ffffff;
+//     background: -webkit-linear-gradient(0deg, #ffffff 0%, #00f2c3 100%);
+//     background: -o-linear-gradient(0deg, #0098f0 0%, #00f2c3 100%);
+//     background: -moz-linear-gradient(0deg, #0098f0 0%, #00f2c3 100%);
+//     background: linear-gradient(0deg, #0098f0 0%, #00f2c3 100%); 
+// }
+.table-responsive { 
+	height:400px; 
+	overflow:auto; 
+}
+thead tr th { 
+	background: white; 
+	position: sticky; 
+	top: 0; 
+	z-index: 10; 
 }
 

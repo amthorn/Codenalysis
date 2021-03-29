@@ -1,30 +1,38 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom';
-import Routes from "./views/_routes";
+/* 
+eslint-disable
+unicorn/no-abusive-eslint-disable,
+eslint-comments/no-unlimited-disable 
+*/
+/* eslint-disable */
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-// Library Styles
-// import "bootswatch/dist/spacelab/bootstrap.min.css";
-import 'react-data-table-component-extensions/dist/index.css';
-import 'react-toastify/dist/ReactToastify.css';
-import 'font-awesome/css/font-awesome.min.css'; // So we can use classnames, not just react objects
+import Routes from "./views/Routes.jsx";
 
-import './assets/js/assets/css/nucleo-icons.css';
-import './assets/js/assets/css/black-dashboard-react.css';
-// import './assets/js/assets/demo/demo.css';
-// Useful for reference:
-// import 'assets/js/index';
+// Library Styles
+import "react-toastify/dist/ReactToastify.css";
+
+// So we can use classnames, not just react objects
+import "font-awesome/css/font-awesome.min.css";
+import "assets/js/assets/css/nucleo-icons.css";
+import "assets/js/assets/css/black-dashboard-react.css";
 
 // App styles
-import "./assets/css/main.css"
+// Doesn't exist locally, but exists in container
+import "assets/css/main.css";
+/* eslint-enable */
 
 
+
+/* eslint-disable react/jsx-filename-extension */
 ReactDOM.render((
-  <React.StrictMode>
-  	<BrowserRouter>
-		<ToastContainer position="top-center"/>
-		<Routes />
-	</BrowserRouter>
-  </React.StrictMode>
-), document.getElementById('root'))
+	<React.StrictMode>  
+		<BrowserRouter>
+			<ToastContainer position="top-center"/>
+			<Routes />
+		</BrowserRouter>
+	</React.StrictMode>
+), document.querySelector("#root"));
+/* eslint-enable react/jsx-filename-extension */

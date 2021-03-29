@@ -1,0 +1,87 @@
+version: "3.3"
+x-aws-vpc: "vpc-1aa52971"
+x-aws-cluster: "codenalysis"
+services:
+  nginx:
+    x-aws-policies:
+      - "arn:aws:iam::384777061532:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
+    depends_on:
+      - web
+    restart: always
+    image: avthorn/codenalysis_nginx:latest
+    ports:
+      - 80:80
+    healthcheck:
+      test: ["CMD", "service", "nginx", "status", "|", "grep", "\\[ ok \\] nginx is running"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      x-aws-autoscaling: 80
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M
+  db:
+    x-aws-policies:
+      - "arn:aws:iam::384777061532:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
+    restart: always
+    image: avthorn/codenalysis_db:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      x-aws-autoscaling: 80
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+  web:
+    x-aws-policies:
+      - "arn:aws:iam::384777061532:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
+    restart: always
+    depends_on:
+      - api
+    image: avthorn/codenalysis_web:latest
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: '3000'
+    healthcheck:
+      test: ["CMD", "ps", "aux", "|", "grep", "start.js"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      x-aws-autoscaling: 80
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+  api: 
+    x-aws-policies:
+      - "arn:aws:iam::384777061532:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS"
+    depends_on:
+      - db
+    restart: always
+    image: avthorn/codenalysis_api:latest
+    environment:
+      FLASK_ENV: production
+    healthcheck:
+      test: ["CMD", "!", "curl", "http://localhost/api/v1/healthcheck", "|", "grep", "NOT OK"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      x-aws-autoscaling: 80
+      resources:
+        limits:
+          cpus: '1'
+          memory: 512M
+secrets:
+  credentials:
+    file: ./secrets.env
