@@ -11,7 +11,7 @@ def validate(schema_object, location='json'):
         @functools.wraps(f)
         def closure(*args, **kwargs):
             # Let it error so error handler catches it
-            return f(*args, **kwargs, **schema_object.load(getattr(flask.request, location, {})))
+            return f(*args, **kwargs, **schema_object.load(getattr(flask.request, location) or {}))
         return closure
     return decorator
 
@@ -33,3 +33,6 @@ class Schema(SQLAlchemySchema):
 
 class ProjectIdSchema(Schema):
     project_id = fields.Integer(required=True)
+
+class ChallengeIdSchema(Schema):
+    challenge_id = fields.Integer(required=True)

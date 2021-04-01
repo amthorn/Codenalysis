@@ -1,4 +1,4 @@
-import Sidebar from "components/Sidebar";
+import Sidebar from "components/base/Sidebar";
 import StretchSticky from "components/utilities/StretchSticky";
 import React from "react";
 import { Container, Row } from "react-bootstrap";
@@ -13,7 +13,7 @@ import {
 	FaHistory, 
 	FaHome, 
 	FaLandmark, 	FaProjectDiagram, 
-	FaSlidersH } from "react-icons/fa.js";
+	FaSlidersH } from "react-icons/fa";
 import { Navigation } from "react-minimal-side-navigation";
 import { withRouter } from "react-router-dom";
 import Projects from "views/Project/Projects";
@@ -35,6 +35,7 @@ const navItems = {
 			path: "/library",
 			name: "Library",
 			icon: <FaCubes size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/",
@@ -46,6 +47,7 @@ const navItems = {
 			path: "/edit",
 			name: "Edit",
 			icon: <FaEdit size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/",
@@ -62,6 +64,7 @@ const navItems = {
 			path: "submissions",
 			name: "Submissions",
 			icon: <FaClipboardList size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/",
@@ -70,6 +73,7 @@ const navItems = {
 			path: "achievements",
 			name: "Achievements",
 			icon: <FaAward size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/achievements",
@@ -78,6 +82,7 @@ const navItems = {
 			path: "history",
 			name: "History",
 			icon: <FaHistory size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/",
@@ -86,6 +91,7 @@ const navItems = {
 			path: "metrics",
 			name: "Metrics",
 			icon: <FaChartLine size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/",
@@ -94,17 +100,19 @@ const navItems = {
 			path: "settings",
 			name: "Settings",
 			icon: <FaSlidersH size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/",
 		},
 	],
 
-	"/projects/:id/challenges/:id": [
+	"^/projects/(\\d+)/challenges/(\\d+)$": [
 		{
 			path: "edit",
 			name: "Edit",
 			icon: <FaEdit size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/challenges/:id/",
@@ -113,16 +121,7 @@ const navItems = {
 			path: "solutions",
 			name: "Solutions",
 			icon: <FaCheckCircle size="20" className="sidenav-icon" />,
-
-			// Component: Dashboard,
-			// layout: "/projects/:id/challenges/:id/",
-		},
-
-		/* TODO , nice circle notification next to this menu item if submissions need to be reviewed */
-		{
-			path: "submissions",
-			name: "Submissions",
-			icon: <FaClipboardList size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/challenges/:id/",
@@ -131,6 +130,7 @@ const navItems = {
 			path: "comments",
 			name: "Comments",
 			icon: <FaComment size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/challenges/:id/comments",
@@ -139,6 +139,7 @@ const navItems = {
 			path: "rankings",
 			name: "Rankings",
 			icon: <FaLandmark size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/challenges/:id/",
@@ -147,6 +148,7 @@ const navItems = {
 			path: "metrics",
 			name: "Metrics",
 			icon: <FaChartBar size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/challenges/:id/",
@@ -155,6 +157,7 @@ const navItems = {
 			path: "history",
 			name: "History",
 			icon: <FaHistory size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/challenges/:id/",
@@ -163,6 +166,29 @@ const navItems = {
 			path: "settings",
 			name: "Settings",
 			icon: <FaSlidersH size="20" className="sidenav-icon" />,
+			coming_soon: true
+
+			// Component: Dashboard,
+			// layout: "/projects/:id/challenges/:id/",
+		},
+	],
+
+	"^/projects/(\\d+)/challenges$": [
+		/* TODO , nice circle notification next to this menu item if submissions need to be reviewed */
+		{
+			path: "submissions",
+			name: "Submissions",
+			icon: <FaClipboardList size="20" className="sidenav-icon" />,
+			coming_soon: true
+
+			// Component: Dashboard,
+			// layout: "/projects/:id/challenges/:id/",
+		},
+		{
+			path: "metrics",
+			name: "Metrics",
+			icon: <FaChartBar size="20" className="sidenav-icon" />,
+			coming_soon: true
 
 			// Component: Dashboard,
 			// layout: "/projects/:id/challenges/:id/",
@@ -180,7 +206,6 @@ export function getNavItems(path){
 			return navItems[regex];
 		}
 	}
-
 	return navItems["^/$"];
 }
 

@@ -918,9 +918,9 @@ export var ProjectChart2 = function() {
 	);
 };
 
-// Module.exports = {
-//   // chartExample1, // in src/views/Dashboard.js
-//   // chartExample2, // in src/views/Dashboard.js
-//   // chartExample3, // in src/views/Dashboard.js
-//   // chartExample4, // in src/views/Dashboard.js
-// };
+export {
+  chartExample1, // in src/views/Dashboard.js
+  chartExample2, // in src/views/Dashboard.js
+  chartExample3, // in src/views/Dashboard.js
+  chartExample4, // in src/views/Dashboard.js
+};

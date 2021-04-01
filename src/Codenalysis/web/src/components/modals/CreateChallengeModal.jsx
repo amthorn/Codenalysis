@@ -1,5 +1,5 @@
 import FormModal from "components/modals/FormModal";
-import HorizontalRule from "components/utilities/HorizontalRule";
+import HorizontalRule from "components/base/HorizontalRule";
 import { request } from "functions/request";
 import React from "react";
 import { Button,Form } from "react-bootstrap";

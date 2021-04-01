@@ -40,8 +40,9 @@ import {
 	NavbarBrand,
 	NavbarToggler,
 	NavLink,
-	Row,
+	// Row,
 	UncontrolledDropdown} from "reactstrap";
+import { Row } from "components/base/Row";
 
 function getBreadcrumbs(breadcrumbs){
 	return (
@@ -211,12 +212,12 @@ const AdminNavbar = function(properties) {
 					</button>
 				</ModalHeader>
 			</Modal>
-			<Container className="content d-flex flex-column" fluid={ true }>
-				<Row className="flex-grow-1">
-					{ ...React.createElement(properties.component, { ...properties, setBreadcrumbs }) }
+			<Container className="content" fluid={ true }>
+				<Row>
+					{ React.createElement(properties.component, { ...properties, setBreadcrumbs }) }
 				</Row>
 				<Row className="flex-column">
-					{ ...properties.footer }
+					{ properties.footer }
 				</Row>
 			</Container>
 		</React.Fragment>

@@ -1,4 +1,5 @@
-FROM node:15.11.0-alpine
+FROM node:buster-slim
+MAINTAINER Ava Thorn <avatheavian@gmail.com>
 
 ###########################
 # BASE CONTAINER COMMANDS #
@@ -7,14 +8,13 @@ FROM node:15.11.0-alpine
 WORKDIR /codenalysis
 
 RUN npm update -g npm
-RUN npm install --save react-scripts sass@1.32.8
+COPY package.json package.json
 
 ################
 # INSTALLATION #
 ################
 
-COPY package.json package.json
-RUN npm install --save
+RUN npm install
 
 ################
 # VOLUME MOUNT #

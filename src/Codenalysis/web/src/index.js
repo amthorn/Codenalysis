@@ -1,8 +1,4 @@
-/* 
-eslint-disable
-unicorn/no-abusive-eslint-disable,
-eslint-comments/no-unlimited-disable 
-*/
+
 /* eslint-disable */
 import React from "react";
 import ReactDOM from "react-dom";

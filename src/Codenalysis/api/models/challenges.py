@@ -11,7 +11,6 @@ class ChallengeModel(Base, BaseMixin):
     # FIELDS #
     ##########
 
-    id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)
     description = Column(Text, nullable=False)
     project_id = Column(Integer, ForeignKey('projects.id'), nullable=False)

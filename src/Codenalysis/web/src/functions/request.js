@@ -4,7 +4,7 @@ export const request = (url, options) => {
 	const update = {
 		...options,
 
-		head: {
+		headers: {
 			"Content-Type": "application/json",
 			...options.headers,
 		}
@@ -13,8 +13,8 @@ export const request = (url, options) => {
 	return fetch(url, update).then((response) => response.json().then((data) => {
   		if("message" in data){
   			if("raw" in data.message){
-	  			data.message.raw.map((value, key) => (
-	  				toast[data.message.priority](`${key}: ${value}`)
+	  			Object.entries(data.message.raw).map((value) => (
+	  				toast[data.message.priority](`${value[0]}: ${value[1]}`)
 	  			));
 			}else{
 				toast[data.message.priority](data.message.text);

@@ -49,7 +49,7 @@ import {
 	chartExample2,
 	chartExample3,
 	chartExample4,
-} from "../variables/charts.js";
+} from "views/Project/Charts";
 
 const Dashboard = function(properties) {
 	const [bigChartData, setbigChartData] = React.useState("data1");

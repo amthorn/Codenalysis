@@ -1,4 +1,4 @@
-import Footer from "components/Footer";
+import Footer from "components/base/Footer";
 import { request } from "functions/request";
 import React from "react";
 import { Col,Row } from "react-bootstrap";

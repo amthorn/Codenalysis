@@ -59,6 +59,8 @@ services:
       dockerfile: opts/Dockerfile
     environment:
       FLASK_ENV: development
+    env_file:
+      - secrets.env
     healthcheck:
       test: ["CMD", "!", "curl", "http://localhost/api/v1/healthcheck", "|", "grep", "NOT OK"]
       interval: 1m30s

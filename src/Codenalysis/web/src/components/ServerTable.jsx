@@ -1,5 +1,5 @@
 import axios from "axios";
-import cloneDeep from "lodash/cloneDeep.js";
+import cloneDeep from "lodash/cloneDeep";
 import PropTypes from "prop-types";
 import React, {Component} from "react";
 
@@ -526,6 +526,7 @@ ServerTable.defaultProps = {
 };
 
 ServerTable.propTypes = {
+    id: PropTypes.string.isRequired,
 	columns: PropTypes.array.isRequired,
 	url: PropTypes.string.isRequired,
 

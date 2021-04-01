@@ -1,5 +1,5 @@
 from . import Base, BaseMixin
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, String
 
 
 class ProjectModel(Base, BaseMixin):
@@ -10,5 +10,4 @@ class ProjectModel(Base, BaseMixin):
     # FIELDS #
     ##########
 
-    id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False)

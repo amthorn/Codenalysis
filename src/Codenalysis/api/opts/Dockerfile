@@ -1,4 +1,5 @@
 FROM python:3.9
+MAINTAINER Ava Thorn <avatheavian@gmail.com>
 
 # Install apt-get packages
 COPY opts/packages.txt packages.txt

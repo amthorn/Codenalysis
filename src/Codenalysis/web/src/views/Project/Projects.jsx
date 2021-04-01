@@ -1,8 +1,8 @@
 import CreateProjectModal from "components/modals/CreateProjectModal";
 import ServerTable from "components/ServerTable";
 import React from "react";
-import { Col,Container, Row } from "react-bootstrap";
-import { FaPlus , FaSearch,FaSort, FaSortAmountDown, FaSortAmountUp } from "react-icons/fa.js";
+import { Col, Container, Row } from "react-bootstrap";
+import { FaPlus , FaSearch,FaSort, FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 import { withRouter } from "react-router-dom";
 
 
@@ -24,13 +24,14 @@ class Projects extends React.Component {
 						<CreateProjectModal 
 							openModalButtonProps={ {size: "lg", variant: "success" } }
 							openModalButtonText={ <FaPlus size="16"/> }
-							onSubmit={ () => setTimeout(() => {this.ref.current.refreshData();}, 1_000) }
+							onSubmit={ () => setTimeout(() => {this.ref.current.refreshData();}, 1000) }
 						/>
 					</Col>
 				</Row>
 				<Row>
 					<Col>
 						<ServerTable 
+                            id="project_table"
 							ref={ this.ref }
 							url="/api/v1/projects"
 							columns={ ["name", "created_at"] }

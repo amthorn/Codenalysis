@@ -1,8 +1,8 @@
 import Navbar from "components/AdminNavbar";
-import Footer from "components/Footer";
+import Footer from "components/base/Footer";
 import NavSidebar, { getNavItems } from "components/NavSidebar";
-import { themes } from "components/ThemeContext";
-import ThemeContextWrapper from "components/ThemeWrapper";
+import { themes } from "components/layout/ThemeContext";
+import ThemeContextWrapper from "components/layout/ThemeWrapper";
 import React from "react";
 import { Col,Container, Row } from "react-bootstrap";
 
@@ -17,7 +17,7 @@ export var NotFoundPage = function() {
 								<h1>Page Not Found:(</h1>
 							</Row>
 							<Row className="justify-content-center">
-								<text>404 Page not found</text>
+								<span>404 Page not found</span>
 							</Row>
 						</Container>
 					</div>

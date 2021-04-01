@@ -1,8 +1,9 @@
-import Layout from "components/Layout";
+import Layout from "components/layout/Layout";
 import React from "react";
 import { Route,Switch } from "react-router-dom";
 import Admin from "views/Admin/Admin";
-import Challenge from "views/Challenges/Challenge";
+import Submission from "views/Submissions/Submission";
+import Submissions from "views/Submissions/Submissions";
 import Challenges from "views/Challenges/Challenges";
 import { NotFoundPage }  from "views/Error";
 import Home from "views/Home";
@@ -22,7 +23,10 @@ const Routes = function() {
 
 			{/* PROJECT CHALLENGES */}
 			<Route exact={ true } path={ "/projects/:project_id(\\d+)/challenges" } component={ layoutRender(Challenges) } />
-			<Route exact={ true } path={ "/projects/:project_id(\\d+)/challenges/:challenge_id(\\d+)" } component={ layoutRender(Challenge) } />
+            {/* TODO: <Route exact={ true } path={ "/projects/:project_id(\\d+)/challenges/:challenge_id(\\d+)" } component={ layoutRender(Challenge) } /> */}
+            <Route exact={ true } path={ "/projects/:project_id(\\d+)/challenges/:challenge_id(\\d+)/submissions" } component={ layoutRender(Submissions) } />
+            <Route exact={ true } path={ "/projects/:project_id(\\d+)/challenges/:challenge_id(\\d+)/submissions/new" } component={ layoutRender(Submission) } />
+            <Route exact={ true } path={ "/projects/:project_id(\\d+)/challenges/:challenge_id(\\d+)/submissions/:submission_id(\\d+)" } component={ layoutRender(Submission) } />
 
 			{/* ADMIN */}
 			{/* TODO: AUTHENTICATE/AUTHORIZE  */}

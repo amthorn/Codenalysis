@@ -1,4 +1,4 @@
-import { Button } from "components/Button";
+import { Button } from "components/base/Button";
 import PropTypes from "prop-types";
 import React from "react";
 import { Modal } from "react-bootstrap";

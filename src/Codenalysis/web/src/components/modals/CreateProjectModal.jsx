@@ -1,6 +1,6 @@
-import { Button } from "components/Button";
+import { Button } from "components/base/Button";
 import FormModal from "components/modals/FormModal";
-import HorizontalRule from "components/utilities/HorizontalRule";
+import HorizontalRule from "components/base/HorizontalRule";
 import { request } from "functions/request";
 import React from "react";
 import { Form } from "react-bootstrap";
