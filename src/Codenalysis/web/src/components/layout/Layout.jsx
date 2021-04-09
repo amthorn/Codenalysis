@@ -12,12 +12,8 @@ import { NotFoundPage } from "views/Error";
 
 
 class Layout extends React.Component {
-	constructor(properties){
-		super(properties);
-		
-	}
 
- state = {sidebarOpened: false, notFound: false}
+ 	state = {sidebarOpened: false, notFound: false}
 
 	toggleSidebar = () => {
 		document.documentElement.classList.toggle("nav-open");

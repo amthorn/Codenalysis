@@ -43,11 +43,24 @@ import {
 	// Row,
 	UncontrolledDropdown} from "reactstrap";
 import { Row } from "components/base/Row";
+import { PageLoadRestController } from "components/Controllers/Controllers";
 
 function getBreadcrumbs(breadcrumbs){
 	return (
 		<Breadcrumb>
-			{ breadcrumbs.map(index => <BreadcrumbItem>{index.to ? <Link { ...{active: index.active, to: index.to } }>{ index.name }</Link> : <div>{index.name}</div>}</BreadcrumbItem>) }
+			{ 
+        breadcrumbs.map(index => (
+          <BreadcrumbItem key={ index.to ? index.to : 'active' }>
+          {
+            index.to ? <Link key={ index.to ? index.to : 'active' } active={ index.active } to={ index.to }>
+              { index.name }
+            </Link> : <div key={ index.to ? index.to : 'active' }>
+              { index.name }
+            </div> 
+          }
+          </BreadcrumbItem>
+        ))
+      }
 		</Breadcrumb>
 	);
 }
@@ -56,6 +69,7 @@ const AdminNavbar = function(properties) {
 	const [breadcrumbs, setBreadcrumbs] = React.useState([]);
 	const [collapseOpen, setcollapseOpen] = React.useState(false);
 	const [modalSearch, setmodalSearch] = React.useState(false);
+	const [pageData, setPageData] = React.useState({});
 	const [color, setcolor] = React.useState("navbar-transparent");
 
 	React.useEffect(() => {
@@ -93,6 +107,9 @@ const AdminNavbar = function(properties) {
 	const toggleModalSearch = () => {
 		setmodalSearch(!modalSearch);
 	};
+
+	let args = properties.urlData?.params?.map(param => properties.match.params[param])
+	const url = properties.urlData?.url?.format(...args)
 
 	return (
 		<React.Fragment>
@@ -214,7 +231,11 @@ const AdminNavbar = function(properties) {
 			</Modal>
 			<Container className="content" fluid={ true }>
 				<Row>
-					{ React.createElement(properties.component, { ...properties, setBreadcrumbs }) }
+ 					<PageLoadRestController url={ url } setBreadcrumbs= { setBreadcrumbs } setData={ setPageData }>
+					{
+						React.createElement(properties.component, { ...properties, pageData }) 
+					}
+					</PageLoadRestController>
 				</Row>
 				<Row className="flex-column">
 					{ properties.footer }

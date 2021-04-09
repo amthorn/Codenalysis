@@ -12,43 +12,39 @@ import {
 	Table,
 } from "reactstrap";
 import { PaddedCard } from "components/PaddedCard";
+import classNames from "classnames/dedupe";
 
-export var TooltipTable = function({ title, subtitle, columns, data }) {
-	console.log(data);
-
-	return (
-		<Table responsive={ true }>
-			<thead className="text-primary">
-				<tr>
-					{
-						columns.map(index => <th className="text-center">{ index }</th>)
-					}
-				</tr>
-			</thead>
-			<tbody>
-				{
-					data.map(row => (
-						<tr>{ row.map(col => ( col.tip ? (
-							<OverlayTrigger
-								id="foo"
-								delay={ { show: 250, hide: 400 } }
-								overlay={
-									<Tooltip>
-										{ col.tip }
-									</Tooltip>
-								}
-							>
-								<td className="text-center" style={ { "cursor": "pointer" } }>
-									{ col.value }
-								</td>
-							</OverlayTrigger>
-						) : (
-							<td className="text-center">{ col.value }</td>
-						)
-						)) }</tr>
-					))
-				}
-			</tbody>
-		</Table>
-	);
-};
+export const TooltipTable = ({ title, subtitle, columns, data, ...props}) => (
+	<Table responsive={ true } { ...props }>
+		<thead className="text-primary">
+			<tr>
+				{ columns.map(index => <th key={ index } className="text-center">{ index }</th>) }
+			</tr>
+		</thead>
+		<tbody>
+			{
+				data.map((row, i) => (
+					<tr>{ row.map(col => ( col.tip ? (
+						<OverlayTrigger
+							key={ title }
+							id={ title }
+							delay={ { show: 250, hide: 400 } }
+							overlay={
+								<Tooltip>
+									{ col.tip }
+								</Tooltip>
+							}
+						>
+							<td key={ col.value } className={ classNames("text-center", col.className) } style={ { "cursor": "pointer" } }>
+								{ col.value }
+							</td>
+						</OverlayTrigger>
+					) : (
+						<td key={ col.value } className={ classNames("text-center", col.className) }>{ col.value }</td>
+					)
+					)) }</tr>
+				))
+			}
+		</tbody>
+	</Table>
+);

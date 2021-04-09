@@ -8,16 +8,16 @@ from flask_restplus import Resource, Namespace
 ns = Namespace(name="submissions", api=v1)
 
 
-@ns.route('/<int:submission_id>')
+@ns.route('/<int:submissionId>')
 class SubmissionApi(Resource):
-    def get(self, submission_id):
-        obj = SubmissionModel.query.get_or_404(submission_id)
+    def get(self, submissionId):
+        obj = SubmissionModel.query.get_or_404(submissionId)
         return {'data': [{**obj.to_dict(), 'script': obj.script}]}
 
     @validate(SubmissionSchema())
-    def put(self, submission_id, **kwargs):
+    def put(self, submissionId, **kwargs):
         script = kwargs.pop('script')
-        data = SubmissionModel.query.get_or_404(submission_id)
+        data = SubmissionModel.query.get_or_404(submissionId)
         data.script = script
         return {
             'data': [data.to_dict()],
@@ -25,11 +25,11 @@ class SubmissionApi(Resource):
         }
 
 
-@ns.route('/<int:submission_id>/run')
+@ns.route('/<int:submissionId>/run')
 class SubmissionRunApi(Resource):
-    def post(self, submission_id, **kwargs):
+    def post(self, submissionId, **kwargs):
         return {
-            'data': [SubmissionModel.query.get_or_404(submission_id).run().to_dict()],
+            'data': [SubmissionModel.query.get_or_404(submissionId).run().to_dict()],
             'message': {'text': 'Submission Ran Successfully!', 'priority': 'success'}
         }
 
@@ -37,11 +37,11 @@ class SubmissionRunApi(Resource):
 @ns.route('/')
 class SubmissionsApi(Resource):
     @validate(ChallengeIdSchema(), location='args')
-    def get(self, challenge_id):
+    def get(self, challengeId):
         # TODO:
         return {'data': [
             i.to_dict()
-            for i in SubmissionModel.query.filter_by(challenge_id=challenge_id).all()
+            for i in SubmissionModel.query.filter_by(challengeId=challengeId).all()
         ]}
 
     @validate(SubmissionSchema())

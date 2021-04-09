@@ -3,17 +3,23 @@ import StretchSticky from "components/utilities/StretchSticky";
 import React from "react";
 import { Container, Row } from "react-bootstrap";
 import { 
-	FaAward,	FaChartBar, 	FaChartLine, 
+	FaAward,
+	FaChartBar,
+	FaChartLine, 
 	FaCheckCircle, 
 	FaChess, 
 	FaClipboardList, 
 	FaComment, 
 	FaCubes, 
-	FaEdit, 	FaFileCode, 
+	FaEdit,
+	FaFileCode, 
 	FaHistory, 
 	FaHome, 
-	FaLandmark, 	FaProjectDiagram, 
-	FaSlidersH } from "react-icons/fa";
+	FaLandmark,
+	FaProjectDiagram, 
+	FaSlidersH, 
+	FaPlay 
+} from "react-icons/fa";
 import { Navigation } from "react-minimal-side-navigation";
 import { withRouter } from "react-router-dom";
 import Projects from "views/Project/Projects";
@@ -127,6 +133,14 @@ const navItems = {
 			// layout: "/projects/:id/challenges/:id/",
 		},
 		{
+			path: "submissions",
+			name: "Submissions",
+			icon: <FaClipboardList size="20" className="sidenav-icon" />
+
+			// Component: Dashboard,
+			// layout: "/projects/:id/",
+		},
+		{
 			path: "comments",
 			name: "Comments",
 			icon: <FaComment size="20" className="sidenav-icon" />,
@@ -173,6 +187,34 @@ const navItems = {
 		},
 	],
 
+	"^/projects/(\\d+)/challenges/(\\d+)/submissions/(\\d+)$": [
+		{
+			path: "runs",
+			name: "Runs",
+			icon: <FaPlay size="20" className="sidenav-icon" />
+
+			// Component: Dashboard,
+			// layout: "/projects/:id/challenges/:id/",
+		},
+		{
+			path: "metrics",
+			name: "Metrics",
+			icon: <FaChartBar size="20" className="sidenav-icon" />,
+			coming_soon: true
+
+			// Component: Dashboard,
+			// layout: "/projects/:id/challenges/:id/",
+		},
+		{
+			path: "history",
+			name: "History",
+			icon: <FaHistory size="20" className="sidenav-icon" />,
+			coming_soon: true
+
+			// Component: Dashboard,
+			// layout: "/projects/:id/challenges/:id/",
+		}
+	],
 	"^/projects/(\\d+)/challenges$": [
 		/* TODO , nice circle notification next to this menu item if submissions need to be reviewed */
 		{

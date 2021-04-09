@@ -25,7 +25,7 @@ export var PillContainer = function({ children, pills, orientation }) {
 			<Nav variant="pills" className={ `flex-${orientation === 'horizontal' ? 'row' : 'column'}` }>
 				{
 					pills.map((text, index) => (
-						<Nav.Item className={ `m${orientation === 'horizontal' ? 'r' : 'b'}-2` }>
+						<Nav.Item key={ index } className={ `m${orientation === 'horizontal' ? 'r' : 'b'}-2` }>
 							<Nav.Link eventKey={ eventKeys[index] }>{ text }</Nav.Link>
 						</Nav.Item>
 					))
@@ -34,7 +34,6 @@ export var PillContainer = function({ children, pills, orientation }) {
 		</NiceContainer>
 	)
 	const orientations = () => {
-		console.log(orientation)
 		return {
 			horizontal: (
 				<Container>

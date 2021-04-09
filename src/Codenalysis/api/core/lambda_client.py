@@ -18,9 +18,7 @@ class LambdaClient():
                 **self.LAMBDA_CONFIG,
                 Payload=json.dumps(payload).encode()
             )
-        except boto3.botocore.exceptions.ClientError as e:
-            import pdb; pdb.set_trace()
-            print()
+        except Exception as e:
             raise BadGateway("Lambda is not accessible right now. Please try again.")
 
     def get_object(self, *args, **kwargs):

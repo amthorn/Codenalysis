@@ -21,4 +21,4 @@ class SubmissionSchema(SQLAlchemySchema):
             'required': 'The script is required!',
         }
     )
-    challenge_id = auto_field(required=True)
+    challengeId = auto_field(required=True)

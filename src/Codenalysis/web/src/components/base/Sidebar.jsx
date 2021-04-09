@@ -102,8 +102,6 @@ const Sidebar = function(properties) {
 				<Nav>
 					{routes.map((property, key) => {
 						if (property.redirect) {return null;}
-            console.log(property)
-
 						return (
 							<li
 								key={ key }
@@ -114,11 +112,11 @@ const Sidebar = function(properties) {
 									activeClassName="active"
 									onClick={ properties.toggleSidebar }
 								>
-									<p>
+									<div>
 										{ React.isValidElement(property.icon) ?  property.icon : <i className={ property.icon } />}
 										{ property.name }
                     { property.coming_soon ? <ComingSoon /> : null }
-									</p>
+									</div>
 								</NavLink>
 							</li>
 						);

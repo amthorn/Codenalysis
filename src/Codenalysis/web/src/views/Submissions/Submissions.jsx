@@ -6,14 +6,10 @@ import { FaPlus, FaSearch, FaSort, FaSortAmountDown, FaSortAmountUp } from "reac
 import { withRouter } from "react-router-dom";
 
 
-class Projects extends React.Component {
+class Submissions extends React.Component {
 	constructor(properties) {
 		super(properties);
 		this.ref = React.createRef(this);
-	}
-
-	componentDidMount() {
-		this.props.setBreadcrumbs([{name: "Home", to: "/"}, {name: "Projects", active: true}]);
 	}
 
 	render() {
@@ -21,7 +17,7 @@ class Projects extends React.Component {
 			<Container fluid={ true }>
 				<Row>
 					<Col>
-						<Button variant="success" size="lg" onClick={ () => this.props.history.push('submissions/new') }>
+						<Button variant="info" size="lg" onClick={ () => this.props.history.push('submissions/new') }>
 							<FaPlus size="16"/>
 						</Button>
 					</Col>
@@ -31,7 +27,7 @@ class Projects extends React.Component {
 						<ServerTable 
 							id="submission_table"
 							ref={ this.ref }
-							url={ `/api/v1/submissions?challenge_id=${this.props.match.params.challenge_id}` }
+							url={ `/api/v1/submissions?challengeId=${this.props.match.params.challengeId}` }
 							columns={ ["created_at", "created_by"] }
 							hover={ true }
 							striped={ true }
@@ -59,4 +55,4 @@ class Projects extends React.Component {
 	}
 }
 
-export default withRouter(Projects);
+export default withRouter(Submissions);

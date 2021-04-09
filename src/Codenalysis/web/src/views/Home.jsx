@@ -1,10 +1,6 @@
 import React from "react";
 
 export default class Home extends React.Component {
-	componentDidMount() {
-		this.props.setBreadcrumbs([{name: "Home", active: true}]);
-	}
-
 	render() {
 		return (
 			<React.Fragment>

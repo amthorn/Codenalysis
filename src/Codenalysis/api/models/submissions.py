@@ -18,7 +18,7 @@ class SubmissionModel(Base, BaseMixin):
     # FIELDS #
     ##########
 
-    challenge_id = Column(Integer, ForeignKey('challenges.id'), nullable=False)
+    challengeId = Column(Integer, ForeignKey('challenges.id'), nullable=False)
     # TODO: user id
 
     # Relationships
@@ -26,7 +26,7 @@ class SubmissionModel(Base, BaseMixin):
 
     @property
     def script_path(self):
-        return f'challenges/{self.challenge.id}/submissions/{self.id}'
+        return f'challenges/{self.challenge.id}/submissions/{self.id}.script'
 
     @hybrid_property
     def script(self):
@@ -41,10 +41,7 @@ class SubmissionModel(Base, BaseMixin):
     def script(self, value):
         # Upload to s3
         self.updated_at = datetime.datetime.utcnow()
-        return S3Client().upload_file(
-            value,
-            f'challenges/{self.challenge.id}/submissions/{self.id}'
-        )
+        return S3Client().upload_file(value, self.script_path)
 
     def run(self):
         # Create run object
@@ -57,6 +54,7 @@ class SubmissionModel(Base, BaseMixin):
         LambdaClient().run(
             payload={
                 'runId': model.id,
+                'tests': [i.to_dict() for i in self.challenge.testcases],
                 's3ObjectKey': self.script_path
             }
         )

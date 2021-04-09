@@ -20,4 +20,6 @@ v1 = Api(
 from v1.projects import ProjectApi, ProjectsApi  # noqa
 from v1.challenges import ChallengeApi, ChallengesApi  # noqa
 from v1.submissions import SubmissionApi, SubmissionsApi  # noqa
+from v1.runs import RunApi, RunsApi  # noqa
 from v1.healthcheck import HealthCheckApi  # noqa
+from v1.testcases import TestcaseApi, TestcasesApi  # noqa

@@ -1,41 +1,58 @@
 import Layout from "components/layout/Layout";
 import React from "react";
-import { Route,Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Admin from "views/Admin/Admin";
-import Submission from "views/Submissions/Submission";
+import { Submission } from "views/Submissions/Submission";
+import { Run } from "views/Runs/Run";
+import { Runs } from "views/Runs/Runs";
+import { NewSubmission } from "views/Submissions/NewSubmission";
 import Submissions from "views/Submissions/Submissions";
 import Challenges from "views/Challenges/Challenges";
+import { Challenge } from "views/Challenges/Challenge";
 import { NotFoundPage }  from "views/Error";
 import Home from "views/Home";
-import Project from "views/Project/Project";
+import { Project } from "views/Project/Project";
 import Projects from "views/Project/Projects";
+import { NewChallenge } from "views/Challenges/NewChallenge";
+
 
 const Routes = function() {
 	const layoutRender = component => function(properties) {
-		return <Layout component={ component } { ...properties } />;
+		return <Layout component={ component } urlData={ component?.urlData } { ...properties } />;
 	};
+
+	const _routes = [
+		// Projects //
+		{ path: "/projects", exact: true, component: layoutRender(Projects) },
+		{ path: "/projects/:projectId(\\d+)", exact: true, component: layoutRender(Project) },
+
+		// Project Challenges //
+		{ path: "/projects/:projectId(\\d+)/challenges", exact: true, component: layoutRender(Challenges) },
+		{ path: "/projects/:projectId(\\d+)/challenges/:challengeId(\\d+)", exact: true, component: layoutRender(Challenge) },
+		{ path: "/projects/:projectId(\\d+)/challenges/new", exact: true, component: layoutRender(NewChallenge) },
+
+		// Submissions //
+		{ path: "/projects/:projectId(\\d+)/challenges/:challengeId(\\d+)/submissions", exact: true, component: layoutRender(Submissions) },
+		{ path: "/projects/:projectId(\\d+)/challenges/:challengeId(\\d+)/submissions/new", exact: true, component: layoutRender(NewSubmission) },
+		{ path: "/projects/:projectId(\\d+)/challenges/:challengeId(\\d+)/submissions/:submissionId(\\d+)", exact: true, component: layoutRender(Submission) },
+
+		// Runs //
+		{ path: "/projects/:projectId(\\d+)/challenges/:challengeId(\\d+)/submissions/:submissionId(\\d+)/runs", exact: true, component: layoutRender(Runs) },
+		{ path: "/projects/:projectId(\\d+)/challenges/:challengeId(\\d+)/submissions/:submissionId(\\d+)/runs/:runId(\\d+)", exact: true, component: layoutRender(Run) },
+
+		// Admin //
+		{ path: "/admin", exact: true, component: layoutRender(Admin) },
+		// TODO: Authenticate/authorize //
+
+		{ path: "/", exact: true, component: layoutRender(Home) },
+		{ path: "*", component: () => <NotFoundPage />, status: 404 },
+	]
 
 	return (
 		<Switch>
-			{/* PROJECTS */}
-			<Route exact={ true } path={ "/projects/:project_id(\\d+)" } component={ layoutRender(Project) }/>
-			<Route exact={ true } path="/projects" component={ layoutRender(Projects) } />
-
-			{/* PROJECT CHALLENGES */}
-			<Route exact={ true } path={ "/projects/:project_id(\\d+)/challenges" } component={ layoutRender(Challenges) } />
-            {/* TODO: <Route exact={ true } path={ "/projects/:project_id(\\d+)/challenges/:challenge_id(\\d+)" } component={ layoutRender(Challenge) } /> */}
-            <Route exact={ true } path={ "/projects/:project_id(\\d+)/challenges/:challenge_id(\\d+)/submissions" } component={ layoutRender(Submissions) } />
-            <Route exact={ true } path={ "/projects/:project_id(\\d+)/challenges/:challenge_id(\\d+)/submissions/new" } component={ layoutRender(Submission) } />
-            <Route exact={ true } path={ "/projects/:project_id(\\d+)/challenges/:challenge_id(\\d+)/submissions/:submission_id(\\d+)" } component={ layoutRender(Submission) } />
-
-			{/* ADMIN */}
-			{/* TODO: AUTHENTICATE/AUTHORIZE  */}
-			<Route exact={ true } path="/admin" component={ layoutRender(Admin) } />
-
-			<Route exact={ true } path="/" component={ layoutRender(Home) } />
-
-			{/* ERROR ROUTE: DO NOT USE layoutRender */}
-			<Route component={ () => <NotFoundPage /> } path="*" status={ 404 }/>
+			{
+				_routes.map(r => <Route key={ r.path } { ...r } /> )
+			}
 		</Switch>
 	);
 };

@@ -5,8 +5,8 @@ import { Container } from "components/Components";
 
 export var NiceContainer = function({ children, ...props }) {
 	const style = {
-		"box-shadow": "0 2px 22px 0 rgb(0 0 0 / 10%), 0 4px 20px 0 rgb(0 0 0 / 15%)",
-		"border-radius": "5px"
+		"boxShadow": "0 2px 22px 0 rgb(0 0 0 / 10%), 0 4px 20px 0 rgb(0 0 0 / 15%)",
+		"borderRadius": "5px"
 	};
 
 	return (

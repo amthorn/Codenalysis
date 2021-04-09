@@ -8,10 +8,10 @@ from flask_restplus import Resource, Namespace
 ns = Namespace(name="projects", api=v1)
 
 
-@ns.route('/<int:project_id>')
+@ns.route('/<int:projectId>')
 class ProjectApi(Resource):
-    def get(self, project_id):
-        return {'data': [ProjectModel.query.get_or_404(project_id).to_dict()]}
+    def get(self, projectId):
+        return {'data': [ProjectModel.query.get_or_404(projectId).to_dict()]}
 
 
 @ns.route('/')

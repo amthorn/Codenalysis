@@ -29,4 +29,22 @@ class ChallengeSchema(SQLAlchemySchema):
             'required': 'The challenge description is required!',
         }
     )
-    project_id = auto_field(required=True)
+    hint = auto_field(required=False)
+    difficulty = auto_field(
+        required=True,
+        # TODO add enum validation
+        error_messages={
+            'required': 'The challenge description is required!',
+        }
+    )
+    giveUpAllowed = auto_field(
+        required=True,
+        error_messages={
+            'required': 'The challenge description is required!',
+        }
+    )
+    attemptsBeforeGiveUpAllowed = auto_field(
+        required=False,
+        default=0
+    )
+    projectId = auto_field(required=True)

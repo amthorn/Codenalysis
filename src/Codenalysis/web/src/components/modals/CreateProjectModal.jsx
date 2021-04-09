@@ -1,6 +1,6 @@
 import { Button } from "components/base/Button";
 import FormModal from "components/modals/FormModal";
-import HorizontalRule from "components/base/HorizontalRule";
+import { HorizontalRule } from "components/base/HorizontalRule";
 import { request } from "functions/request";
 import React from "react";
 import { Form } from "react-bootstrap";
@@ -51,8 +51,8 @@ export default class CreateProjectForm extends FormModal {
     			</Form.Group>
 	<HorizontalRule />
 	<div className="d-flex justify-content-end">
-	<Button variant="primary" type="submit">
-	Submit
+                    <Button id="submitNewProjectButton" color="info" type="submit" help="Submit new project">
+                    	Submit
     				</Button>
     			</div>
     		</Form>

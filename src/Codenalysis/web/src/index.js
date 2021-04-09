@@ -4,6 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import "functions/generic";
 
 import Routes from "./views/Routes.jsx";
 
@@ -24,11 +25,9 @@ import "assets/css/main.css";
 
 /* eslint-disable react/jsx-filename-extension */
 ReactDOM.render((
-	<React.StrictMode>  
-		<BrowserRouter>
-			<ToastContainer position="top-center"/>
-			<Routes />
-		</BrowserRouter>
-	</React.StrictMode>
+	<BrowserRouter>
+		<ToastContainer position="top-center"/>
+		<Routes />
+	</BrowserRouter>
 ), document.querySelector("#root"));
 /* eslint-enable react/jsx-filename-extension */

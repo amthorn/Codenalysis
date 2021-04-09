@@ -37,7 +37,11 @@ def upgrade():
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('name', sa.String(255), nullable=False),
         sa.Column('description', sa.Text, nullable=False),
-        sa.Column('project_id', sa.Integer, sa.ForeignKey('projects.id'), nullable=False),
+        sa.Column('hint', sa.Text, nullable=False),
+        sa.Column('difficulty', sa.String(255), nullable=False),
+        sa.Column('giveUpAllowed', sa.Boolean, nullable=False),
+        sa.Column('attemptsBeforeGiveUpAllowed', sa.Integer, nullable=False, default=0),
+        sa.Column('projectId', sa.Integer, sa.ForeignKey('projects.id'), nullable=False),
         sa.Column('created_at', sa.types.DateTime, default=sa.sql.func.now(), nullable=False),
         sa.Column(
             'updated_at',
@@ -51,7 +55,7 @@ def upgrade():
     op.create_table(
         'submissions',
         sa.Column('id', sa.Integer, primary_key=True),
-        sa.Column('challenge_id', sa.Integer, sa.ForeignKey('challenges.id'), nullable=False),
+        sa.Column('challengeId', sa.Integer, sa.ForeignKey('challenges.id'), nullable=False),
         sa.Column('created_at', sa.types.DateTime, default=sa.sql.func.now(), nullable=False),
         sa.Column(
             'updated_at',
@@ -65,7 +69,25 @@ def upgrade():
     op.create_table(
         'runs',
         sa.Column('id', sa.Integer, primary_key=True),
-        sa.Column('submission_id', sa.Integer, sa.ForeignKey('submissions.id'), nullable=False),
+        sa.Column('submissionId', sa.Integer, sa.ForeignKey('submissions.id'), nullable=False),
+        sa.Column('created_at', sa.types.DateTime, default=sa.sql.func.now(), nullable=False),
+        sa.Column(
+            'updated_at',
+            sa.types.DateTime,
+            default=sa.sql.func.now(),
+            onupdate=sa.sql.func.now(),
+            nullable=False
+        ),
+        sa.Column('deleted_at', sa.types.DateTime, nullable=True)
+    )
+    op.create_table(
+        'testcases',
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('challengeId', sa.Integer, sa.ForeignKey('challenges.id'), nullable=False),
+        sa.Column('input', sa.String(255), nullable=False),
+        sa.Column('inputType', sa.String(255), nullable=False),
+        sa.Column('output', sa.String(255), nullable=False),
+        sa.Column('outputType', sa.String(255), nullable=False),
         sa.Column('created_at', sa.types.DateTime, default=sa.sql.func.now(), nullable=False),
         sa.Column(
             'updated_at',
@@ -84,5 +106,6 @@ def downgrade():
     op.drop_table('projects')
     op.drop_table('challenges')
     op.drop_table('submissions')
+    op.drop_table('testcases')
     op.drop_table('runs')
     # ### end Alembic commands ###

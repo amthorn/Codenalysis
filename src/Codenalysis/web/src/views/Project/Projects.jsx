@@ -12,19 +12,16 @@ class Projects extends React.Component {
 		this.ref = React.createRef(this);
 	}
 
-	componentDidMount() {
-		this.props.setBreadcrumbs([{name: "Home", to: "/"}, {name: "Projects", active: true}]);
-	}
-
 	render() {
 		return (
 			<Container fluid={ true }>
 				<Row>
 					<Col>
 						<CreateProjectModal 
-							openModalButtonProps={ {size: "lg", variant: "success" } }
+							openModalButtonProps={ {id: "createNewProjectButton", size: "lg", color: "info" } }
 							openModalButtonText={ <FaPlus size="16"/> }
 							onSubmit={ () => setTimeout(() => {this.ref.current.refreshData();}, 1000) }
+							help="Create a new project"
 						/>
 					</Col>
 				</Row>

@@ -1,4 +1,6 @@
-import { CodeEditor, CodeEditorSettingsPanel } from "components/CodeEditor";
+// TODO: this page should be commented and better organized
+
+import { CodeEditorPanel } from "components/CodeEditor";
 import { NiceContainer } from "components/NiceContainer";
 import { PillContainer } from "components/PillContainer";
 import { TooltipTable } from "components/Tables/TooltipTable";
@@ -17,11 +19,16 @@ import { Row } from "components/base/Row";
 import { RightAlignRow } from "components/base/RightAlignRow";
 import { Container } from "components/base/Container";
 import { ComingSoon } from "components/ComingSoon";
+import { Table } from "components/base/Table";
+import { ChallengeTests } from "components/ChallengeTests";
+import { Title } from "components/base/Title";
+import { HorizontalRule } from "components/base/HorizontalRule";
+import { Switch } from "components/base/Switch";
+import { Form } from "components/Form/Form";
 
 export {
 	Accordion,
-	CodeEditor,
-	CodeEditorSettingsPanel,
+	CodeEditorPanel,
 	NiceContainer,
 	PillContainer,
 	TooltipTable,
@@ -38,5 +45,11 @@ export {
 	RightAlignCol,
 	RightAlignRow,
 	Container,
-	ComingSoon
+	ComingSoon,
+	Table,
+	ChallengeTests,
+	Title,
+	HorizontalRule,
+	Switch,
+	Form
 };

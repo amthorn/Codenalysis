@@ -1,20 +1,25 @@
 import React from "react";
-import { Button as _Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button as _Button, UncontrolledTooltip } from "reactstrap";
+import { OverlayTrigger } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 
-export const Button = ({ placement, delay, id, children, help, ...properties }) => {
+const Button = ({ placement, delay, id, children, help, ...properties }) => {
 	return (
-		  <OverlayTrigger
-		  	id={ id }
-		    placement={ placement || "right" }
-		    delay={ delay || { show: 250, hide: 400 } }
-		    overlay={ 
-				<Tooltip>
-					{ help }
-				</Tooltip>
-  			}
-		  >
-			<_Button { ...properties }>{ children }</_Button>
-		  </OverlayTrigger>
+		<React.Fragment>
+		<UncontrolledTooltip placement={ placement || "right" } target={ id } delay={ delay !== undefined ? delay : { show: 250, hide: 400 } }>
+        			{ help }
+      	</UncontrolledTooltip>
+		<_Button id={ id } { ...properties }>{ children }</_Button>
+		</React.Fragment>
 	);
 };
+
+Button.propTypes = {
+	id: PropTypes.string.isRequired,
+	help: PropTypes.string.isRequired,
+    placement: PropTypes.string,
+	delay: PropTypes.object,
+};
+
+export { Button };

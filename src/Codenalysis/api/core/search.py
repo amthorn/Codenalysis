@@ -11,10 +11,11 @@ class Search(APIDecorator):
     def operation(self, *args, **kwargs):
         matches = []
         for i in self.data:
-            for k, v in i.items():
-                if self.query.lower() in str(v).lower():
-                    matches.append(i)
-                    break
+            if isinstance(i, dict):
+                for k, v in i.items():
+                    if self.query.lower() in str(v).lower():
+                        matches.append(i)
+                        break
         return jsonify({
             **{k: v for k, v in self.response.json.items() if k != 'data'},
             'data': matches
