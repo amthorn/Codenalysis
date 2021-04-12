@@ -1,15 +1,19 @@
 import flask
 import functools
 from marshmallow_sqlalchemy import SQLAlchemySchema
-from marshmallow import fields
+from marshmallow import fields, Schema
+from typing import Callable, Any
 
 
-def validate(schema_object, location='json'):
+def validate(
+    schema_object: Schema,
+    location: str = 'json'
+) -> Callable[Callable[Any, Any], Callable[Any, Any]]:
     # Use 'json' for body
     # Use 'args' for query args
-    def decorator(f):
+    def decorator(f: Callable[Any, Any]) -> Callable[Any, Any]:
         @functools.wraps(f)
-        def closure(*args, **kwargs):
+        def closure(*args: list[Any], **kwargs: dict[Any]) -> Any:
             # Let it error so error handler catches it
             try:
                 result = getattr(flask.request, location)

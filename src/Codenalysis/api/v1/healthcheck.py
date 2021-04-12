@@ -8,7 +8,7 @@ ns = Namespace(name="healthcheck", api=v1)
 
 @ns.route('/')
 class HealthCheckApi(Resource):
-    def get(self):
+    def get(self) -> dict[str, list[dict[str, str]]]:
         # Hit front end
         try:
             if requests.get('http://web:3000/').ok:

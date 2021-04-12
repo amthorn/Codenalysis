@@ -1,5 +1,4 @@
 from models.testcases import TestcaseModel
-from marshmallow import validate
 from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 
 

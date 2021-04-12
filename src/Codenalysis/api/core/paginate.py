@@ -37,19 +37,19 @@ class Paginate(APIDecorator):
         except (ValueError, AssertionError):
             raise BadRequest("Query argument 'start' must be a non-zero integer")
 
-    def _get_url_with_params(self, params):
+    def _get_url_with_params(self, params: dict[str, int]) -> str:
         if not params:
             return ''
         else:
             urlparams = ("?" + urlencode(params)) if params else ""
             return f'{app.config["FQDN"]}{request.path}{urlparams}'
 
-    def calculate_total(self):
+    def calculate_total(self) -> None:
         # Calculate totals for pagination
         # API design means return value should always be a list
         self.total = len(self.data)
 
-    def calculate_previous_page(self):
+    def calculate_previous_page(self) -> None:
         # if start = 1, we are on the first page, thus there is no previous page
         if self.start == 1:
             self.previous_data = {}
@@ -62,7 +62,7 @@ class Paginate(APIDecorator):
             }
         self.previous = self._get_url_with_params(self.previous_data)
 
-    def calculate_next_page(self):
+    def calculate_next_page(self) -> None:
         # if start + limit is greater than the total records, there is no next page.
         if self.start + self.limit > self.total:
             self.next_data = {}

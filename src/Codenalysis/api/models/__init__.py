@@ -40,7 +40,7 @@ class BaseMixin(SerializerMixin, TimestampMixin):
     id = Column(Integer, primary_key=True)
 
 
-def init_db():
+def init_db() -> None:
     from .projects import ProjectModel  # noqa
     from .challenges import ChallengeModel  # noqa
     # alembic.migrate()

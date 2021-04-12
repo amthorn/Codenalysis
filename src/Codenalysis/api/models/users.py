@@ -19,22 +19,22 @@ class UserModel(Base, BaseMixin):
     email = Column(String(64), unique=True, nullable=False)
 
     @hybrid_property
-    def password(self):
+    def password(self) -> str:
         return self.passwordHash
 
     @password.setter
-    def password(self, plaintextPassword):
+    def password(self, plaintextPassword: str) -> None:
         self.passwordHash = self._hash(plaintextPassword)
 
-    def _hash(self, value):
+    def _hash(self, value: str) -> str:
         return hashlib.sha3_512(value.encode(), usedforsecurity=True).hexdigest()
 
     @hybrid_property
-    def api_key(self):
+    def api_key(self) -> str:
         return self.api_key_hash
 
     @api_key.setter
-    def api_key(self, plaintext_api_key):
+    def api_key(self, plaintext_api_key: str) -> str:
         self.api_key_hash = hashlib.sha3_512(
             plaintext_api_key.encode(),
             usedforsecurity=True

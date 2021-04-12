@@ -8,6 +8,7 @@ from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 from models import db
 from models.users import UserModel
 from werkzeug.exceptions import Conflict, Unauthorized
+from typing import Union
 
 v1 = Api(
     app,
@@ -38,7 +39,7 @@ class UserSchema(SQLAlchemySchema):
 
 @v1.route('/check')
 class AuthCheckApi(Resource):
-    def get(self):
+    def get(self) -> dict[str, dict[str, bool]]:
         # Will raise an error if not authzed
         JWTEncoder().decode(request.cookies.get(app.config.get('TOKEN_COOKIE_NAME')))
         return {'data': {'success': True}}
@@ -46,7 +47,7 @@ class AuthCheckApi(Resource):
 
 @v1.route('/register')
 class AuthRegisterApi(Resource):
-    def post(self, **kwargs):
+    def post(self) -> dict[str, Union[list[dict], dict[str, str]]]:
         data = UserSchema().load(request.json)
         # Check if user already exists
         if UserModel.query.filter_by(username=data['username']).first():
@@ -70,7 +71,7 @@ class AuthRegisterApi(Resource):
 
 @v1.route('/login')
 class LoginApi(Resource):
-    def post(self):
+    def post(self) -> dict[str, dict[str, str]]:
         data = LoginSchema().load(request.json)
         user = UserModel.query.filter_by(username=data['username']).first()
         if not user or user.password != user._hash(data['password']):
@@ -90,7 +91,7 @@ class LoginApi(Resource):
 
 @v1.route('/logout')
 class LogoutApi(Resource):
-    def post(self):
+    def post(self) -> dict[str, Union[bool, dict[str, str]]]:
         token = request.cookies.get(app.config.get('TOKEN_COOKIE_NAME'))
         BlacklistHandler().add(token, expiration=JWTEncoder().decode(token)['exp'])
         return {
@@ -104,5 +105,5 @@ class LogoutApi(Resource):
 
 @v1.route('/healthcheck')
 class HealthcheckApi(Resource):
-    def get(self):
+    def get(self) -> dict[str, dict[str, str]]:
         return {'data': {'status': 'OK'}}
