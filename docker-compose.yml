@@ -24,6 +24,8 @@ services:
       context: src/Codenalysis/db
     environment:
       MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
       interval: 1m30s
@@ -33,6 +35,7 @@ services:
     restart: always
     depends_on:
       - api
+      - auth
     build:
       context: src/Codenalysis/web/
       dockerfile: Dockerfile
@@ -53,10 +56,11 @@ services:
   api: 
     depends_on:
       - db
+      - auth
     restart: always
     build:
       context: src/Codenalysis/api
-      dockerfile: opts/Dockerfile
+      dockerfile: ops/Dockerfile
     environment:
       FLASK_ENV: development
     env_file:
@@ -70,3 +74,30 @@ services:
       - ./src/Codenalysis/api:/codenalysis
     tty: true
     stdin_open: true
+  auth: 
+    depends_on:
+      - redis
+      - db
+    restart: always
+    build:
+      context: src/Codenalysis/auth
+      dockerfile: ops/Dockerfile
+    environment:
+      FLASK_ENV: development
+    env_file:
+      - secrets.env
+    healthcheck:
+      test: ["CMD", "curl", "http://localhost/api/v1/auth/healthcheck", "|", "grep", "OK"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    volumes:
+      - ./src/Codenalysis/auth:/auth
+    tty: true
+    stdin_open: true
+  redis: 
+    restart: always
+    image: redis:6.2.1
+    # build:
+    #   context: src/Codenalysis/api
+    #   dockerfile: opts/Dockerfile

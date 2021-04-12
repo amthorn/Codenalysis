@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { request } from "functions/request";
-import { Spinner } from "components/base/Spinner";
+// import { Spinner } from "components/Components";
 import startCase from "lodash/startCase";
 
 

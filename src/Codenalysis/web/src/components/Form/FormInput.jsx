@@ -1,7 +1,7 @@
 import { FormGroup, Label, Input, FormFeedback, FormText } from "reactstrap";
 import { PropTypes } from "prop-types";
 
-export const FormInput = ({ controlId, id, name, type, placeholder, label, onChange, valid, invalid, feedbackMessage, text, ...props }) => {
+export const FormInput = ({ controlId, id, name, type, placeholder, label, onChange, valid, invalid, feedbackMessage, text, value, ...props }) => {
     return <FormGroup controlId={ controlId || `${name}Input` }>
         <Label for={ id || `${name}Input` }>{ label }</Label>
         <Input 
@@ -12,11 +12,10 @@ export const FormInput = ({ controlId, id, name, type, placeholder, label, onCha
         	onChange={ onChange } 
         	valid={ valid }
         	invalid={ invalid }
+            value={ value }
         />
-        <FormFeedback valid={ valid } invalid={ invalid }>{ feedbackMessage }</FormFeedback>
-        <FormText className="text-muted">
-            { text }
-        </FormText>
+        { feedbackMessage ? <FormFeedback valid={ valid || !invalid }>{ feedbackMessage }</FormFeedback> : null }
+        { text ? <FormText className="text-muted">{ text }</FormText> : null }
     </FormGroup>
 }
 
@@ -24,7 +23,7 @@ FormInput.propTypes = {
 	controlId: PropTypes.string,
 	id: PropTypes.string,
 	label: PropTypes.string.isRequired,
-    type: PropTypes.oneOf(['text', 'textarea']),
+    type: PropTypes.oneOf(['text', 'textarea', 'password']),
 	valid: PropTypes.bool,
 	invalid: PropTypes.bool,
 	onChange: PropTypes.func,

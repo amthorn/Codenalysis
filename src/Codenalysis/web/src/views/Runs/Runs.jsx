@@ -26,7 +26,6 @@ export const Runs = ({ match, history }) => (
 					}
 				} }
 				onClick={ (a) => {
-					console.log(a)
 					history.push(`/projects/${match.params.projectId}/challenges/${match.params.challengeId}/submissions/${match.params.submissionId}/runs/${a.target.parentNode.getAttribute("data-id")}`);
 				} }
 			/>

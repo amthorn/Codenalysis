@@ -1,5 +1,7 @@
+import json
+
 from . import APIDecorator
-from flask import request, jsonify
+from flask import request, Response
 from app import app
 from urllib.parse import urlencode
 from werkzeug.exceptions import BadRequest
@@ -18,7 +20,7 @@ class Paginate(APIDecorator):
     PAGE_KEY = 'limit'
     START_KEY = 'start'
 
-    def get_query_args(self):
+    def get_query_args(self) -> None:
         self.limit = request.args.get(self.PAGE_KEY, app.config['DEFAULT_PAGE_LENGTH'])
         self.start = request.args.get(self.START_KEY, 1)
 
@@ -72,14 +74,17 @@ class Paginate(APIDecorator):
             }
         self.next = self._get_url_with_params(self.next_data)
 
-    def operation(self, *args, **kwargs):
+    def operation(self) -> Response:
+        if not isinstance(self.data, (tuple, list)):
+            return self.response
+
         self.calculate_total()
 
         self.calculate_previous_page()
         self.calculate_next_page()
 
         # Using bounds, calculate pagination
-        return jsonify({
+        self.response.data = json.dumps({
             **{k: v for k, v in self.response.json.items() if k != 'data'},
             'start': self.start,
             'limit': self.limit,
@@ -88,3 +93,4 @@ class Paginate(APIDecorator):
             'total': self.total,
             'data': self.data[(self.start - 1):(self.start - 1 + self.limit)]
         })
+        return self.response

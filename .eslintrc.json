@@ -1,0 +1,89 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
+  },
+  "extends": [
+    "airbnb",
+    "eslint:all",
+    "plugin:react/all",
+    "plugin:promise/recommended",
+    "es/node",
+    "hardcore",
+    "hardcore/fp",
+    "hardcore/node",
+    "plugin:security/recommended"
+  ],
+  "env": {
+    "browser": true
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    "src/assets/js/",
+    "*.html"
+  ],
+  "rules": {
+    "react/jsx-curly-spacing": [
+      2,
+      "always"
+    ],
+    "react/jsx-indent": [
+      "error",
+      "tab"
+    ],
+    "no-undef": [
+      2
+    ],
+    "quotes": [
+      2,
+      "double",
+      "avoid-escape"
+    ],
+    "prettier/prettier": 0,
+    "this/no-this": 2,
+    "no-secrets/no-secrets": 2,
+    "xss/no-mixed-html": 2,
+    "xss/no-location-href-assign": 2,
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "filenames/match-regex": 2,
+    "filenames/match-exported": 2,
+    "filenames/no-index": 2,
+    "no-tabs": 0,
+    "indent": [
+      "error",
+      "tab"
+    ],
+    "node/no-unsupported-features/es-syntax": 0,
+    "promise/prefer-await-to-then": 0,
+    "func-style": 0,
+    "promise/no-nesting": 0,
+    "putout/putout": 0,
+    "semi": [
+      2,
+      "always"
+    ],
+    "import/prefer-default-export": 0,
+    "unicorn/no-abusive-eslint-disable": 1,
+    "eslint-comments/no-unlimited-disable": 1,
+    "no-warning-comments": 0,
+    "unicorn/expiring-todo-comments": 0,
+    "import/no-unused-modules": 0
+  },
+  "plugins": [
+    "react",
+    "react-native",
+    "@babel",
+    "promise",
+    "this",
+    "no-secrets",
+    "security",
+    "xss",
+    "simple-import-sort",
+    "filenames"
+  ]
+}

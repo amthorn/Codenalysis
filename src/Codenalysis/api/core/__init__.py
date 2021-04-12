@@ -1,18 +1,20 @@
 import functools
+from typing import Callable, Any
+from flask import Response
 
 
 class APIDecorator:
-    def __init__(self, f):
+    def __init__(self, f: Callable[..., Any]) -> None:
         functools.update_wrapper(self, f)
         self.f = f
 
-    def get_query_args(self):
-        raise NotImplementedError()
+    def get_query_args(self) -> None:
+        pass
 
-    def operation(self):
-        raise NotImplementedError()
+    def operation(self) -> Response:
+        pass
 
-    def __call__(self, *args, **kwargs):
+    def __call__(self, *args: list[Any], **kwargs: dict[Any, Any]) -> Response:
         self.get_query_args()
         # Call function
         self.response = self.f(*args, **kwargs)
@@ -24,4 +26,4 @@ class APIDecorator:
             # Abort if non-200 code occurs
             return self.response
 
-        return self.operation(*args, **kwargs)
+        return self.operation() or self.response

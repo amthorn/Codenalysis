@@ -1,20 +1,27 @@
-import flask
 import json
-import marshmallow
+import os
 import pprint
-import werkzeug
 import traceback
+
+import flask
+import marshmallow
+import werkzeug
+
 from app import app
+
+# Set configuration
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['TOKEN_COOKIE_NAME'] = 'codenalysisToken'
+
+##########
+#  APIS  #
+##########
+from api.v1 import v1  # noqa
 
 ##########
 # MODELS #
 ##########
 from models import init_db  # noqa
-
-##########
-#  APIS  #
-##########
-from v1 import v1  # noqa
 
 init_db()
 

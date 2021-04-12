@@ -1,45 +1,92 @@
-import Footer from "components/base/Footer";
-import Navbar from "components/AdminNavbar";
-import NavSidebar, { getNavItems } from "components/NavSidebar";
-import { themes } from "components/layout/ThemeContext";
-import ThemeContextWrapper from "components/layout/ThemeWrapper";
-import StretchSticky from "components/utilities/StretchSticky";
-import React from "react";
-import { Button,Container } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
 import { FaChevronLeft,FaChevronRight } from "react-icons/fa";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { NotFoundPage } from "views/Error";
+import { request } from "functions/request";
+import { authCheck } from "functions/auth";
+import { Spinner } from "components/base/BaseComponents";
+import { 
+	// // Spinner, 
+	// Footer, 
+	Container,
+	Row,
+	Navbar, 
+	NavSidebar,
+	Footer,
+	// getNavItems, 
+	ThemeContextWrapper
+	// StretchSticky
+} from "components/Components";
+import { PageLoadRestController } from "components/Controllers/Controllers";
+import { themes } from "./ThemeContext";
 
+export const Layout = ({ location, history, ...props}) => {
 
-class Layout extends React.Component {
+ 	let [sidebarOpened, setSidebarOpened] = useState(false);
+ 	let [notFound, setNotFound] = useState(false);
+ 	let [loading, setLoading] = useState(true);
+ 	let [authenticated, setAuthenticated] = useState(false);
+ 	let [breadcrumbs, setBreadcrumbs] = useState([]);
+ 	let [pageData, setPageData] = useState(null);
 
- 	state = {sidebarOpened: false, notFound: false}
-
-	toggleSidebar = () => {
+	const toggleSidebar = () => {
 		document.documentElement.classList.toggle("nav-open");
 	    this.setState({sidebarOpened: !this.state.sidebarOpened});
 	};
 
-	notFound(){
-		this.setState({notFound: true});
+	useEffect(() => {
+		authCheck().then(success => {
+			console.log(success)
+			setAuthenticated(success);
+			setLoading(false);
+		})
+	}, []);
+
+	const content = () => (
+		<>
+			<Navbar 
+				toggleSidebar={ toggleSidebar } 
+				notFound={ () => setNotFound(true) }
+				breadcrumbs={ breadcrumbs }
+				history={ history }
+			/>
+			<NavSidebar 
+				toggleSidebar={ toggleSidebar } 
+				sidebarOpened={ sidebarOpened }
+			/>
+			<div className="main-panel" data="blue">
+				<Container className="content" fluid={ true }>
+					<Row>
+	 					<PageLoadRestController 
+	 						url={ props.url } 
+	 						setBreadcrumbs= { setBreadcrumbs } 
+	 						setData={ setPageData }
+	 					>
+							{ React.createElement(props.component, { ...props, pageData }) }
+						</PageLoadRestController>
+					</Row>
+					<Row className="flex-column">
+						<Footer />
+					</Row>
+				</Container>
+			</div>
+		</>
+	)
+
+	if(notFound){
+		return <NotFoundPage />;
 	}
 
-	render() {
-		if(this.state.notFound){
-			return <NotFoundPage />;
-		}
-
-	    return (
-			<ThemeContextWrapper theme={ themes.light }>
-				<div className="wrapper">
-					<NavSidebar toggleSidebar={ this.toggleSidebar } sidebarOpened={ this.state.sidebarOpened } { ...this.props }/>
-					<div className="main-panel" data="blue">
-						<Navbar toggleSidebar={ this.toggleSidebar } component={ this.props.component } { ...this.props } notFound={ () => this.notFound() } footer={ <Footer /> }/>
-					</div>
-				</div>
-			</ThemeContextWrapper>
-	    );
+	if (!authenticated && !loading) {
+		return <Redirect to={ `/login?redirect=${encodeURIComponent(location.pathname)}` } />;
 	}
+
+	return (
+		<ThemeContextWrapper theme={ themes.light }>
+			<div className="wrapper">
+				{ authenticated && !loading ? content() : <Spinner lg={ true }/> }
+			</div>
+		</ThemeContextWrapper>
+	)
 }
-
-export default Layout;

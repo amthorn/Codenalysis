@@ -1,20 +1,22 @@
 FROM python:3.9
-MAINTAINER Ava Thorn <avatheavian@gmail.com>
+LABEL MAINTAINER="Ava Thorn" EMAIL="avatheavian@gmail.com"
 
 # Install apt-get packages
-COPY opts/packages.txt packages.txt
+COPY ops/packages.txt packages.txt
 RUN apt-get update
 RUN xargs apt-get install -y < packages.txt
 RUN rm -rf packages.txt
 
 # Install pip requirements
-COPY opts/requirements.txt requirements.txt
+COPY ops/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 RUN rm -f requirements.txt
 
 WORKDIR /codenalysis
 
 COPY . .
-RUN rm -rf opts
+RUN rm -rf ops
 
-ENTRYPOINT ["./opts/docker-entrypoint.sh"]
+COPY ops/docker-entrypoint.sh /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]

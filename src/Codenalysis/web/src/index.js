@@ -5,6 +5,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "functions/generic";
+import "components/Components";
 
 import Routes from "./views/Routes.jsx";
 

@@ -1,5 +1,5 @@
 import { Spinner as Spnr } from "reactstrap";
-import { Row, Container } from "components/Components";
+import { Row, Container } from "./BaseComponents";
 
 export const Spinner = ({ loading = true, sm, md, lg, xl, ...props }) => {
 	const spinnerStyling = {

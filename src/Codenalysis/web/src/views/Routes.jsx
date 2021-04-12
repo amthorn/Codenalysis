@@ -1,4 +1,4 @@
-import Layout from "components/layout/Layout";
+import { Layout } from "components/layout/Layout";
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Admin from "views/Admin/Admin";
@@ -14,6 +14,7 @@ import Home from "views/Home";
 import { Project } from "views/Project/Project";
 import Projects from "views/Project/Projects";
 import { NewChallenge } from "views/Challenges/NewChallenge";
+import { Login } from "views/Auth/Login";
 
 
 const Routes = function() {
@@ -45,6 +46,7 @@ const Routes = function() {
 		// TODO: Authenticate/authorize //
 
 		{ path: "/", exact: true, component: layoutRender(Home) },
+		{ path: "/login", exact: true, component: Login },
 		{ path: "*", component: () => <NotFoundPage />, status: 404 },
 	]
 

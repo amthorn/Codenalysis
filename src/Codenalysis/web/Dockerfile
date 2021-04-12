@@ -1,5 +1,5 @@
-FROM node:buster-slim
-MAINTAINER Ava Thorn <avatheavian@gmail.com>
+FROM node:slim
+LABEL maintainer="Ava Thorn" email="avatheavian@gmail.com"
 
 ###########################
 # BASE CONTAINER COMMANDS #

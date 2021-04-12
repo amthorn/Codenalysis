@@ -17,7 +17,7 @@ def validate(schema_object, location='json'):
                 result = None
 
             parsed = schema_object.load(result or {})
-            
+
             if isinstance(parsed, (list, tuple)):
                 return f(*args, *parsed, **kwargs)
             else:
@@ -44,8 +44,10 @@ class Schema(SQLAlchemySchema):
 class ProjectIdSchema(Schema):
     projectId = fields.Integer(required=True)
 
+
 class ChallengeIdSchema(Schema):
     challengeId = fields.Integer(required=True)
+
 
 class SubmissionIdSchema(Schema):
     submissionId = fields.Integer(required=True)

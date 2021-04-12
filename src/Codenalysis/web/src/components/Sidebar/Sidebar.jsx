@@ -13,7 +13,7 @@ import { ComingSoon } from "components/Components";
 
 let ps;
 
-const Sidebar = function(properties) {
+export const Sidebar = function(properties) {
 	const location = useLocation();
 	const sidebarReference = React.useRef(null);
 
@@ -160,5 +160,3 @@ Sidebar.propTypes = {
 		imgSrc: PropTypes.string,
 	}),
 };
-
-export default Sidebar;

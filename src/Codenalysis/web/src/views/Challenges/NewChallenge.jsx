@@ -123,7 +123,6 @@ export const NewChallenge = withRouter(({ pageData, match, history }) => {
 	);
 
 	const submitNewTestcase = () => {
-		console.log(modalData)
 		let fail = false;
 		if(!'inputType' in modalData || !types.map(i => i.value).includes(modalData.inputType)){
 			setModalData({...modalData, inputType: ""});
@@ -141,7 +140,6 @@ export const NewChallenge = withRouter(({ pageData, match, history }) => {
 			setModalData({...modalData, output: ""});
 			fail = true;
 		}
-		console.log(modalData)
 		if(fail){
 			return;
 		}

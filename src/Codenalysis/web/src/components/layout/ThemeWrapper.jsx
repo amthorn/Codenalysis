@@ -2,7 +2,7 @@ import React, { useEffect,useState } from "react";
 
 import { ThemeContext, themes } from "components/layout/ThemeContext";
 
-export default function ThemeContextWrapper(properties) {
+export const ThemeContextWrapper = (properties) => {
 	const [theme, setTheme] = useState(properties.theme);
 
 	function changeTheme(theme) {

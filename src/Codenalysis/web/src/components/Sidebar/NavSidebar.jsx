@@ -1,4 +1,4 @@
-import Sidebar from "components/base/Sidebar";
+import { Sidebar } from "./Sidebar";
 import StretchSticky from "components/utilities/StretchSticky";
 import React from "react";
 import { Container, Row } from "react-bootstrap";
@@ -251,19 +251,11 @@ export function getNavItems(path){
 	return navItems["^/$"];
 }
 
-class NavSidebar extends React.Component {
-	render() {
-	    return (
-			<Sidebar 
-	    		routes={ getNavItems(window.location.pathname) }
-	    		logoElement={
-					<a href="/"><img src="/logo.png" /></a>
-	    		}
-	    	/>
-		);
-	}
-}
-
-;
-
-export default withRouter(NavSidebar);
+export const NavSidebar = withRouter(() => (
+	<Sidebar 
+		routes={ getNavItems(window.location.pathname) }
+		logoElement={
+			<a href="/"><img src="/logo.png" /></a>
+		}
+	/>
+));

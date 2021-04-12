@@ -1,5 +1,7 @@
+import json
+
 from . import APIDecorator
-from flask import request, jsonify
+from flask import request, Response
 from werkzeug.exceptions import BadRequest
 
 # Pagination does not exist in the pynamodb
@@ -16,7 +18,7 @@ class Sort(APIDecorator):
         'DESC': -1
     }
 
-    def get_query_args(self):
+    def get_query_args(self) -> None:
         self.order_by = request.args.get(self.ORDER_KEY, '').lower()
         self.direction = request.args.get(self.DIRECTION_KEY, '').upper()
 
@@ -25,7 +27,10 @@ class Sort(APIDecorator):
             string_directions = ', '.join(self.DIRECTIONS)
             raise BadRequest(f"Query argument 'direction' must be one of: {string_directions}")
 
-    def operation(self, *args, **kwargs):
+    def operation(self) -> Response:
+        if not isinstance(self.data, (tuple, list)):
+            return self.response
+
         if self.order_by:
             self.data = sorted(self.data, key=lambda x: x[self.order_by])
 
@@ -33,9 +38,10 @@ class Sort(APIDecorator):
             self.data = self.data[::(self.DIRECTIONS[self.direction])]
 
         # Using bounds, calculate pagination
-        return jsonify({
+        self.response.data = json.dumps({
             **{k: v for k, v in self.response.json.items() if k != 'data'},
             **({'order_by': self.order_by} if self.order_by else {}),
             **({'direction': self.direction} if self.direction else {}),
             'data': self.data
         })
+        return self.response

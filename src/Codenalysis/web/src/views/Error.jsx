@@ -1,10 +1,9 @@
-import Navbar from "components/AdminNavbar";
+import Navbar from "components/Navbar";
 import Footer from "components/base/Footer";
-import NavSidebar, { getNavItems } from "components/NavSidebar";
 import { themes } from "components/layout/ThemeContext";
-import ThemeContextWrapper from "components/layout/ThemeWrapper";
+import { ThemeContextWrapper } from "components/Components";
 import React from "react";
-import { Col,Container, Row } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
 export var NotFoundPage = function() {
 	return (

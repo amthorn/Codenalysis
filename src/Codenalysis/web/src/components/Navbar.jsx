@@ -36,14 +36,14 @@ import {
 	Modal,
 	ModalHeader,
 	Nav,
-	Navbar,
+	Navbar as NvBr,
 	NavbarBrand,
 	NavbarToggler,
 	NavLink,
 	// Row,
 	UncontrolledDropdown} from "reactstrap";
 import { Row } from "components/base/Row";
-import { PageLoadRestController } from "components/Controllers/Controllers";
+import { logout } from "functions/auth";
 
 function getBreadcrumbs(breadcrumbs){
 	return (
@@ -65,12 +65,11 @@ function getBreadcrumbs(breadcrumbs){
 	);
 }
 
-const AdminNavbar = function(properties) {
-	const [breadcrumbs, setBreadcrumbs] = React.useState([]);
+export const Navbar = (properties) => {
 	const [collapseOpen, setcollapseOpen] = React.useState(false);
 	const [modalSearch, setmodalSearch] = React.useState(false);
 	const [pageData, setPageData] = React.useState({});
-	const [color, setcolor] = React.useState("navbar-transparent");
+	const [color, setcolor] = React.useState("");
 
 	React.useEffect(() => {
 		window.addEventListener("resize", updateColor);
@@ -113,7 +112,7 @@ const AdminNavbar = function(properties) {
 
 	return (
 		<React.Fragment>
-			<Navbar className={ classNames("navbar-absolute", color) } expand="lg">
+			<NvBr className={ classNames("fixed-top white-content", color) } expand="lg">
 				<Container fluid={ true } className="px-0">
 					<div className="navbar-wrapper">
 						<div
@@ -134,11 +133,11 @@ const AdminNavbar = function(properties) {
 						<span className="navbar-toggler-bar navbar-kebab" />
 						<span className="navbar-toggler-bar navbar-kebab" />
 					</NavbarToggler>
-					{ getBreadcrumbs(breadcrumbs) }
+					{ properties.breadcrumbs ? getBreadcrumbs(properties.breadcrumbs) : null }
 					<Nav className="ml-auto" navbar={ true }>
 						<InputGroup className="search-bar">
 							<Button color="link" onClick={ toggleModalSearch }>
-								<i className="tim-icons icon-zoom-split" />
+								<i className="tim-icons icon-zoom-split"  style={{ color: "#1d253b" }}/>
 								<span className="d-lg-none d-md-block">Search</span>
 							</Button>
 						</InputGroup>
@@ -147,10 +146,11 @@ const AdminNavbar = function(properties) {
 								caret={ true }
 								color="default"
 								data-toggle="dropdown"
-								nav={ true }
+								nav={ true } 
+								style={{ color: "#1d253b" }}
 							>
 								<div className="notification d-none d-lg-block d-xl-block" />
-								<i className="tim-icons icon-sound-wave" />
+								<i className="tim-icons icon-sound-wave"  style={{ color: "#1d253b" }}/>
 								<p className="d-lg-none">Notifications</p>
 							</DropdownToggle>
 							<DropdownMenu className="dropdown-navbar" right={ true } tag="ul">
@@ -187,6 +187,7 @@ const AdminNavbar = function(properties) {
 								color="default"
 								nav={ true }
 								onClick={ (error) => error.preventDefault() }
+								style={{ color: "#1d253b" }}
 							>
 								<div className="photo">
 									<img
@@ -205,14 +206,18 @@ const AdminNavbar = function(properties) {
 								</NavLink>
 								<DropdownItem divider={ true } tag="li" />
 								<NavLink tag="li">
-									<DropdownItem className="nav-item">Log out</DropdownItem>
+									<DropdownItem onClick={ () => {
+										logout();
+										console.log(properties)
+										properties.history.push('/login');
+									} } className="nav-item">Log out</DropdownItem>
 								</NavLink>
 							</DropdownMenu>
 						</UncontrolledDropdown>
 						<li className="separator d-lg-none" />
 					</Nav>
 				</Container>
-			</Navbar>
+			</NvBr>
 			<Modal
 				modalClassName="modal-search"
 				isOpen={ modalSearch }
@@ -229,20 +234,6 @@ const AdminNavbar = function(properties) {
 					</button>
 				</ModalHeader>
 			</Modal>
-			<Container className="content" fluid={ true }>
-				<Row>
- 					<PageLoadRestController url={ url } setBreadcrumbs= { setBreadcrumbs } setData={ setPageData }>
-					{
-						React.createElement(properties.component, { ...properties, pageData }) 
-					}
-					</PageLoadRestController>
-				</Row>
-				<Row className="flex-column">
-					{ properties.footer }
-				</Row>
-			</Container>
 		</React.Fragment>
 	);
 };
-
-export default AdminNavbar;
